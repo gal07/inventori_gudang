@@ -1,0 +1,2 @@
+<?= $footerScript ?>
+</html>
