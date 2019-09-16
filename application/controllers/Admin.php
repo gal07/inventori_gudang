@@ -5,19 +5,22 @@ class Admin extends CI_Controller
 
     public function index($page = 'dashboard')
     {
-
-        if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
-          show_404();
-        }else {
-          
-          $data['headScript'] = $this->Headscript();
-          $data['footerScript'] = $this->FooterScripts();
-          $this->load->view('templates/header_admin',$data);
-          $this->load->view('admin/'.$page,$data);
-          $this->load->view('templates/footer');
-
-        }
+        if (!$this->session->userdata('username')) {
+            show_404();
+        } else {
+            if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
+                show_404();
+              }else {
+                
+                $data['headScript'] = $this->Headscript();
+                $data['footerScript'] = $this->FooterScripts();
+                $this->load->view('templates/header_admin',$data);
+                $this->load->view('admin/'.$page,$data);
+                $this->load->view('templates/footer');
       
+              }
+        }
+    
     }
 
     public function Headscript()

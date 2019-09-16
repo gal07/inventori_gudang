@@ -5,15 +5,71 @@ class Login extends CI_Controller
 
     public function index($page = 'login')
     {
-        if (!file_exists(APPPATH.'views/login/'.$page.'.php')) {
-            show_404();
-          }else {
-            $data['headScript'] = $this->Headscript();
-            $data['footerScript'] = $this->FooterScripts();
-            $this->load->view('templates/header_admin',$data);
-            $this->load->view('login/'.$page,$data);
-            $this->load->view('templates/footer');
-          }
+        if (!$this->session->userdata('username')) {
+            if (!file_exists(APPPATH.'views/login/'.$page.'.php')) {
+                show_404();
+              }else {
+    
+                if(isset($_POST['username'])){
+                    print_r($_POST);
+                    redirect(base_url().'admin');
+                }
+    
+                $data['headScript'] = $this->Headscript();
+                $data['footerScript'] = $this->FooterScripts();
+                $this->load->view('templates/header_admin',$data);
+                $this->load->view('login/'.$page,$data);
+                $this->load->view('templates/footer');
+              }
+        } else {
+            redirect(base_url().'admin');
+        }
+    }
+
+    public function loginFlow()
+    {
+        $data = array(
+            "username"=>$this->input->post('username'),
+            "password"=>$this->input->post('password')
+        );
+
+        $login = $this->login_model->login($data);
+        $message = array();
+        if ($login) {
+            $sessions = array();
+            foreach ($login as $value) {
+             $sessions = array(
+                "username"=>$value->username,
+                "password"=>$value->password,
+                "email"=>$value->email,
+                "role"=>$value->role,
+                "status"=>$value->status
+             );
+            }
+            $this->session->set_userdata($sessions);
+            $message = array(
+                "success"=>1,
+                "message"=>"Login Sukses",
+            );
+        }else{
+            $message = array(
+                "success"=>0,
+                "message"=>"Gagal Login, mungkin Username tidak ada di database",
+            );
+        }
+        echo json_encode($message);
+    }
+
+    public function logout()
+    {
+
+        $this->session->unset_userdata('username');
+        $this->session->unset_userdata('password');
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('role');
+        $this->session->unset_userdata('status');
+        redirect(base_url());
+
     }
 
     public function Headscript()
@@ -53,6 +109,7 @@ class Login extends CI_Controller
             <script src="'.base_url().'assets/js/jquery.tagsinput.js"></script>
             <script src="'.base_url().'assets/js/material-dashboard.js"></script>
             <script src="'.base_url().'assets/js/demo.js"></script>
+            <script src="'.base_url().'assets/js/login.js"></script>
             <script type="text/javascript">
                 $(document).ready(function() {
                     demo.checkFullPageBackgroundImage();

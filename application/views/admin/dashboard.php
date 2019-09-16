@@ -23,7 +23,7 @@
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            Tania Andrew
+                            <?= $this->session->userdata('username') ?>
                             <b class="caret"></b>
                         </a>
                         <div class="collapse" id="collapseExample">
@@ -252,8 +252,8 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">person</i>
+                                <a href="<?= base_url().'login/logout'?>">
+                                    <i class="material-icons">transfer_within_a_station</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
                             </li>
