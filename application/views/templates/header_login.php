@@ -10,4 +10,4 @@
     <meta name="viewport" content="width=device-width" />
     <?= $headScript;?>
 </head>
-<body>
+<body><input type="hidden" id="url" value=<?= base_url() ?>>

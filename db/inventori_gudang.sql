@@ -58,10 +58,18 @@ CREATE TABLE `users` (
   `email` varchar(100) DEFAULT NULL,
   `telepon` varchar(13) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
+  `role` int(1) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `users` */
+
+insert  into `users`(`id`,`username`,`email`,`telepon`,`password`,`role`,`status`) values 
+(1,'galih','galih@mail.com','0991288384','123456',1,1),
+(10,'gudang1','gudang1@mail.com','123456','123456',2,1),
+(11,'gudang1','gudang1sd@mail.com','2342423','123456',2,1),
+(12,'gudansg1','gudangs1@mail.com','05678678','234234',2,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

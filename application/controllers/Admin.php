@@ -32,6 +32,7 @@ class Admin extends CI_Controller
             if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
                 show_404();
               }else {
+                $data['data_account'] = $this->users_model->getAllAccount();
                 $data['titlenavbar'] = 'List Account';
                 $data['title'] = 'List Account';
                 $data['headScript'] = $this->Headscript();
@@ -52,6 +53,26 @@ class Admin extends CI_Controller
             if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
                 show_404();
               }else {
+
+                if (isset($_POST['username']) != NULL) {
+                    $save = $this->users_model->createAccount($this->input->post());
+                    $message = array();
+                    if ($save) {
+                        $message = array(
+                            "success"=>1,
+                            "message"=>"Akun Telah Terbuat",
+                        );
+                    }else {
+                        $message = array(
+                            "success"=>0,
+                            "message"=>"Username Atau Email Sudah Digunakan",
+
+                        );
+                    }
+                    echo json_encode($message);
+                    die();
+                }
+
                 $data['titlenavbar'] = 'Create Account';
                 $data['title'] = 'Create Account';
                 $data['headScript'] = $this->Headscript();

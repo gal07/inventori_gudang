@@ -15,37 +15,48 @@
                                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Age</th>
+                                                    <th>Username</th>
+                                                    <th>Email</th>
+                                                    <th>Telepon</th>
+                                                    <th>Status</th>
                                                     <th>Date</th>
                                                     <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Age</th>
-                                                    <th>Start date</th>
-                                                    <th class="text-right">Actions</th>
+                                                    <th>Username</th>
+                                                    <th>Email</th>
+                                                    <th>Telepon</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                    <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
-                                                <tr>
-                                                    <td>Timothy Mooney</td>
-                                                    <td>Office Manager</td>
-                                                    <td>London</td>
-                                                    <td>37</td>
-                                                    <td>2008/12/11</td>
-                                                    <td class="text-right">
-                                                        <a href="#" class="btn btn-simple btn-info btn-icon like"><i class="material-icons">favorite</i></a>
-                                                        <a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
-                                                        <a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="material-icons">close</i></a>
-                                                    </td>
-                                                </tr>
+                                                <?php if($data_account != NULL): ?>
+
+                                                    <?php foreach($data_account as $value): ?>
+                                                        <tr>
+                                                            <td><?= $value->username ?></td>
+                                                            <td> <?= $value->email ?> </td>
+                                                            <td><?= $value->telepon ?></td>
+                                                            <td><?= $value->status ?></td>
+                                                            <td>2008/12/11</td>
+                                                            <td class="text-right">
+                                                                <a href="#" class="btn btn-simple btn-info btn-icon like"><i class="material-icons">favorite</i></a>
+                                                                <a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
+                                                                <a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="material-icons">close</i></a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach;?>
+
+                                               
+
+                                                <?php else:?>
+                                                
+                                                <?php endif;?>
+                                               
                                             </tbody>
                                         </table>
                                     </div>

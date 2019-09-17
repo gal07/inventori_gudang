@@ -11,6 +11,7 @@
     <?= $headScript;?>
 </head>
 <body>
+<input type="hidden" id="url" value=<?= base_url() ?>>
 <div class="wrapper">
 <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="<?= base_url() ?>assets/img/sidebar-1.jpg">
             <div class="logo">
