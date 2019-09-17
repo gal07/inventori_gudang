@@ -14,12 +14,13 @@ class Login extends CI_Controller
                     print_r($_POST);
                     redirect(base_url().'admin');
                 }
-    
+                $data['titlenavbar'] = 'Login Inventori Gudang';
+                $data['title'] = 'Login Inventori Gudang';
                 $data['headScript'] = $this->Headscript();
                 $data['footerScript'] = $this->FooterScripts();
-                $this->load->view('templates/header_admin',$data);
+                $this->load->view('templates/header_login',$data);
                 $this->load->view('login/'.$page,$data);
-                $this->load->view('templates/footer');
+                $this->load->view('templates/footer_login');
               }
         } else {
             redirect(base_url().'admin');
