@@ -40,7 +40,7 @@
                                         <div class="col-sm-10">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="password" name="password" id="password" class="form-control">
+                                                <input type="password" name="password" id="password" required class="form-control">
                                             </div>
                                             <button type="submit" class="btn btn-rose">Submit</button>
                                         </div>

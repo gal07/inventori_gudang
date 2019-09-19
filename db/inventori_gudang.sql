@@ -24,8 +24,8 @@ CREATE TABLE `barang` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
   `nama_barang` varchar(100) DEFAULT NULL,
   `jenis` varchar(100) DEFAULT NULL,
-  `satuan` varchar(20) DEFAULT NULL,
   `stock` int(11) DEFAULT NULL,
+  `picture` varchar(100) DEFAULT NULL,
   `active` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -61,15 +61,12 @@ CREATE TABLE `users` (
   `role` int(1) DEFAULT NULL,
   `status` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`username`,`email`,`telepon`,`password`,`role`,`status`) values 
-(1,'galih','galih@mail.com','0991288384','123456',1,1),
-(10,'gudang1','gudang1@mail.com','123456','123456',2,1),
-(11,'gudang1','gudang1sd@mail.com','2342423','123456',2,1),
-(12,'gudansg1','gudangs1@mail.com','05678678','234234',2,1);
+(1,'galih','galih@mail.com','0991288384','123456',1,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

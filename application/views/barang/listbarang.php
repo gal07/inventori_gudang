@@ -4,10 +4,10 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-icon" data-background-color="purple">
-                                    <i class="material-icons">person</i>
+                                    <i class="material-icons">assignment</i>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="card-title">List Account <a href="#"> <i class="material-icons">addperson</i> </a></h4>
+                                    <h4 class="card-title">List Barang <a href="<?= base_url().'createbarang' ?>"> <i class="material-icons">note_add</i> </a></h4>
                                     <div class="toolbar">
                                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                                     </div>

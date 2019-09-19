@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'login';
 
 $route['createbarangmasuk'] = 'barang/CreateBarangMasuk';
+$route['savebarang'] = 'barang/SaveBarang';
 $route['createbarangkeluar'] = 'barang/CreateBarangMasuk';
 $route['createbarang'] = 'barang/BuatDataBarang';
 $route['listbarang'] = 'barang/listbarang';

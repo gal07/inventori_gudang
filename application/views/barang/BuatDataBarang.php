@@ -1,280 +1,75 @@
 <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header card-header-icon" data-background-color="rose">
-                                <i class="material-icons">mail_outline</i>
-                            </div>
-                            <div class="card-content">
-                                <h4 class="card-title">Stacked Form</h4>
-                                <form method="#" action="#">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Email address</label>
-                                        <input type="email" class="form-control">
-                                    </div>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Password</label>
-                                        <input type="password" class="form-control">
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="optionsCheckboxes"> Subscribe to newsletter
-                                        </label>
-                                    </div>
-                                    <button type="submit" class="btn btn-fill btn-rose">Submit</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header card-header-icon" data-background-color="rose">
-                                <i class="material-icons">contacts</i>
-                            </div>
-                            <div class="card-content">
-                                <h4 class="card-title">Horizontal Form</h4>
-                                <form class="form-horizontal">
-                                    <div class="row">
-                                        <label class="col-md-3 label-on-left">Email</label>
-                                        <div class="col-md-9">
-                                            <div class="form-group label-floating is-empty">
-                                                <label class="control-label"></label>
-                                                <input type="email" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-md-3 label-on-left">Password</label>
-                                        <div class="col-md-9">
-                                            <div class="form-group label-floating is-empty">
-                                                <label class="control-label"></label>
-                                                <input type="password" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-md-3"></label>
-                                        <div class="col-md-9">
-                                            <div class="checkbox form-horizontal-checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes"> Remember Me
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-md-3"></label>
-                                        <div class="col-md-9">
-                                            <div class="form-group form-button">
-                                                <button type="submit" class="btn btn-fill btn-rose">Sign in</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-md-12">
                         <div class="card">
-                            <form method="get" action="#" class="form-horizontal">
+                            <form method="get" action="#" id="form-create-barang" class="form-horizontal" enctype="multipart/form-data">
                                 <div class="card-header card-header-text" data-background-color="rose">
-                                    <h4 class="card-title">Form Elements</h4>
+                                    <h4 class="card-title"><?= $titlenavbar ?></h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="row">
-                                        <label class="col-sm-2 label-on-left">With help</label>
+                                        <label class="col-sm-2 label-on-left">Nama Barang</label>
                                         <div class="col-sm-10">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="text" class="form-control" value>
-                                                <span class="help-block">A block of help text that breaks onto a new line.</span>
+                                                <input required type="text" name="nama_barang" id="nama_barang" class="form-control" value="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label class="col-sm-2 label-on-left">Password</label>
+                                        <label class="col-sm-2 label-on-left">Jenis Barang</label>
+                                        <div class="col-md-10 col-sm-3">
+                                            <select required class="selectpicker" name="jenis" id="jenis" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
+                                                <option disabled selected>Pilih Jenis</option>
+                                                <option value="Alat Perkantoran">Alat Perkantoran</option>
+                                                <option value="Alat Elektronik">Elektronik</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                   
+
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Stock</label>
                                         <div class="col-sm-10">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="password" class="form-control" value>
+                                                <input required type="number" id="stock" name="stock" class="form-control" value>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
-                                        <label class="col-sm-2 label-on-left">Placeholder</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-group label-floating is-empty">
-                                                <label class="control-label"></label>
-                                                <input type="text" class="form-control" placeholder="placeholder">
-                                            </div>
+                                        <label class="col-sm-2 label-on-left">Status</label>
+                                        <div class="col-md-10 col-sm-3">
+                                            <select required class="selectpicker" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
+                                                <option disabled selected>Pilih Status</option>
+                                                <option value="1">Aktif</option>
+                                                <option value="0">Tidak Aktif</option>
+                                            </select>
                                         </div>
                                     </div>
+                                    <br>
                                     <div class="row">
-                                        <label class="col-sm-2 label-on-left">Disabled</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-group label-floating is-empty">
-                                                <label class="control-label"></label>
-                                                <input type="text" placeholder="Disabled input here..." disabled="" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-sm-2 label-on-left">Static control</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-group">
-                                                <p class="form-control-static">hello@creative-tim.com</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-sm-2 label-on-left">Checkboxes and radios</label>
-                                        <div class="col-sm-10 checkbox-radios">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes"> First Checkbox
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes"> Second Checkbox
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" checked="true"> First Radio
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios"> Second Radio
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-sm-2 label-on-left">Inline checkboxes</label>
-                                        <div class="col-sm-10">
-                                            <div class="checkbox checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes">a
-                                                </label>
-                                            </div>
-                                            <div class="checkbox checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes">b
-                                                </label>
-                                            </div>
-                                            <div class="checkbox checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes">c
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card">
-                            <form method="get" action="#" class="form-horizontal">
-                                <div class="card-header card-header-text" data-background-color="rose">
-                                    <h4 class="card-title">Input Variants</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="row">
-                                        <label class="col-sm-2 label-on-left">Custom Checkboxes &amp; radios</label>
-                                        <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes"> Unchecked
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes" checked> Checked
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes" disabled> Disabled Unchecked
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes" checked disabled> Disabled Checked
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-5 checkbox-radios">
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios"> Radio is off
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" checked="true"> Radio is on
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadiosDisabled" disabled> Disabled Radio is off
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadiosDisabled" checked="true" disabled> Disabled Radio is on
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-sm-2 label-on-left">Input with success</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-group label-floating is-empty has-success">
-                                                <label class="control-label"></label>
-                                                <input type="text" class="form-control" value="Success">
-                                                <span class="material-icons form-control-feedback">done</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-sm-2 label-on-left">Input with error</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-group label-floating is-empty has-error">
-                                                <label class="control-label"></label>
-                                                <input type="text" class="form-control" value="Error Input">
-                                                <span class="material-icons form-control-feedback">clear</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-sm-2 label-on-left">Column sizing</label>
-                                        <div class="col-sm-10">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" placeholder=".col-md-3">
-                                                    </div>
+                                    <label class="col-sm-2 label-on-left">Gambar</label>
+                                    <div class="col-md-4 col-sm-4">
+                                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                                <div class="fileinput-new thumbnail">
+                                                    <img src="<?= base_url() ?>assets/img/image_placeholder.jpg" alt="...">
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" placeholder=".col-md-4">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" placeholder=".col-md-5">
-                                                    </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                                <div>
+                                                    <span class="btn btn-rose btn-round btn-file">
+                                                        <span class="fileinput-new">Select image</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input required type="file" name="..." />
+                                                    </span>
+                                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <button type="submit" class="btn btn-rose">Submit</button>
                                 </div>
                             </form>
                         </div>

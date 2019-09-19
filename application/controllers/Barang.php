@@ -108,6 +108,11 @@ class Barang extends CI_Controller
    
     }
 
+    public function SaveBarang()
+    {
+        echo json_encode($_POST);
+    }
+
 
   
 
