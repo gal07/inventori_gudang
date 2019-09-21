@@ -15,37 +15,43 @@
                                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Age</th>
-                                                    <th>Date</th>
+                                                    <!-- <th></th> -->
+                                                    <th>Nama Barang</th>
+                                                    <th>Jenis</th>
+                                                    <th>Stock</th>
+                                                    <th>Status</th>
                                                     <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Age</th>
-                                                    <th>Start date</th>
-                                                    <th class="text-right">Actions</th>
+                                                    <!-- <th></th> -->
+                                                    <th>Nama Barang</th>
+                                                    <th>Jenis</th>
+                                                    <th>Stock</th>
+                                                    <th>Status</th>
+                                                    <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
+                                            <?php
+                                            if($listbarangs != NULL): ?>
+                                            <?php foreach($listbarangs as $value): ?>
                                                 <tr>
-                                                    <td>Timothy Mooney</td>
-                                                    <td>Office Manager</td>
-                                                    <td>London</td>
-                                                    <td>37</td>
-                                                    <td>2008/12/11</td>
+                                                    <!-- <td> <img src="<?= base_url().'assets/picture/'.$value['picture'] ?>"> </td> -->
+                                                    <td><?= $value['nama_barang'] ?></td>
+                                                    <td><?= $value['jenis'] ?></td>
+                                                    <td><?= $value['stock'] ?></td>
+                                                    <td><?= $value['active'] ?></td>
                                                     <td class="text-right">
                                                         <a href="#" class="btn btn-simple btn-info btn-icon like"><i class="material-icons">favorite</i></a>
                                                         <a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
                                                         <a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="material-icons">close</i></a>
                                                     </td>
                                                 </tr>
+                                            <?php endforeach; ?>
+                                            <?php else: ?>
+                                            <?php endif;?>
                                             </tbody>
                                         </table>
                                     </div>

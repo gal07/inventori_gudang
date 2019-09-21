@@ -58,6 +58,7 @@ class Barang extends CI_Controller
               }else {
                 $data['titlenavbar'] = 'List Barang';
                 $data['title'] = 'List barang';
+                $data['listbarangs'] = $this->barang_model->Get_Barang();
                 $data['headScript'] = $this->Headscript();
                 $data['footerScript'] = $this->FooterScripts('datatable');
                 $this->load->view('templates/header_admin',$data);
@@ -110,7 +111,63 @@ class Barang extends CI_Controller
 
     public function SaveBarang()
     {
-        echo json_encode($_POST);
+        /* Check barang sudah ada atau belum */
+        $check = $this->barang_model->checkExist(ucwords($this->input->post('nama_barang')),$this->input->post('jenis'));
+        if ($check) {
+
+        /* Set Data gambar upload */
+        $config['upload_path'] = 'assets/picture/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|JPG|JPEG';
+        $config['max_size'] = '1040';
+        $config['max_width'] = '3000';
+        $config['max_height'] = '3000';
+        date_default_timezone_set('Asia/Jakarta');
+        $config['file_name']  = date('Ymdhis').'.jpg';
+        $config['detect_mime'] = TRUE;
+        $config['width']  = 75;
+        $config['height'] = 50;
+
+        $this->load->library('image_lib', $config);
+        $this->load->library('upload', $config);
+        $this->image_lib->resize();
+  
+        if ($_FILES['picture']['size'] != 0) {
+          if (!$this->upload->do_upload('picture')) {
+            $result = array('code'=>3,'msg'=>strip_tags($this->upload->display_errors()),'success'=>FALSE);
+            echo json_encode($result);
+            die();
+          }
+
+          /* After Success upload ,Save Data */
+          $data = array(
+            'nama_barang'=>ucwords($this->input->post('nama_barang')),
+            'jenis'=>$this->input->post('jenis'),
+            'stock'=>$this->input->post('stock'),
+            'picture'=>$config['file_name'],
+            'active'=>$this->input->post('status'),
+          );
+
+          $save = $this->barang_model->create($data);
+          if ($save) {
+            $result = array('code'=>1,'msg'=>'Data Barang Telah Terbuat','success'=>TRUE);
+            echo json_encode($result);
+            die();
+          } else {
+            $result = array('code'=>2,'msg'=>'Gagal Membuat Barang, Coba Lagi','success'=>FALSE);
+            echo json_encode($result);
+            die();
+          }
+
+        }
+
+        }else{
+            $result = array('code'=>4,'msg'=>'Barang sudah ada, tidak bisa membuat data yang sama','success'=>FALSE);
+            echo json_encode($result);
+            die();
+        }
+
+        
+
     }
 
 

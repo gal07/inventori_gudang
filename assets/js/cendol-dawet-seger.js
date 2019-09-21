@@ -91,23 +91,50 @@ $(document).ready(function(){
             processData: false,
             success: function (res) {
                 console.log(res)
-            //  if (res.success == 1) {
-            //     swal({
-            //         title: "Success",
-            //         type:"success",
-            //         text: res.message,
-            //         timer: 2000,
-            //         showConfirmButton: false
-            //      });
-            //      window.location = $("#url").val()+'listaccount';
-            //  }else{
-            //     swal({
-            //         title: "Failed",
-            //         text: res.message,
-            //         timer: 2000,
-            //         showConfirmButton: false
-            //      });
-            //  }
+             if (res.code == 1) {
+                swal({
+                    title: "Success",
+                    type:"success",
+                    text: res.msg,
+                    timer: 2000,
+                    showConfirmButton: false
+                 });
+                 window.location = $("#url").val()+'listbarang';
+             }else if(res.code == 2){
+                swal({
+                    title: "Failed",
+                    type:"error",
+                    text: res.msg,
+                    timer: 2000,
+                    showConfirmButton: false
+                 });
+             }
+             else if(res.code == 3){
+                swal({
+                    title: "Failed",
+                    type:"error",
+                    text: res.msg,
+                    timer: 2000,
+                    showConfirmButton: false
+                 });
+             }
+             else if(res.code == 4){
+                swal({
+                    title: "Failed",
+                    type:"error",
+                    text: res.msg,
+                    timer: 2000,
+                    showConfirmButton: false
+                 });
+             }
+             else{
+                swal({
+                    title: "Failed",
+                    text: res.msg,
+                    timer: 2000,
+                    showConfirmButton: false
+                 });
+             }
 
             },
             complete: function () {

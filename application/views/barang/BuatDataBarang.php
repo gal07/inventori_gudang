@@ -42,7 +42,7 @@
                                     <div class="row">
                                         <label class="col-sm-2 label-on-left">Status</label>
                                         <div class="col-md-10 col-sm-3">
-                                            <select required class="selectpicker" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
+                                            <select required class="selectpicker" name="status" id="status" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
                                                 <option disabled selected>Pilih Status</option>
                                                 <option value="1">Aktif</option>
                                                 <option value="0">Tidak Aktif</option>
@@ -62,7 +62,7 @@
                                                     <span class="btn btn-rose btn-round btn-file">
                                                         <span class="fileinput-new">Select image</span>
                                                         <span class="fileinput-exists">Change</span>
-                                                        <input required type="file" name="..." />
+                                                        <input required type="file" name="picture" />
                                                     </span>
                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                                                 </div>
