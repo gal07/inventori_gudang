@@ -25,12 +25,18 @@ CREATE TABLE `barang` (
   `nama_barang` varchar(100) DEFAULT NULL,
   `jenis` varchar(100) DEFAULT NULL,
   `stock` int(11) DEFAULT NULL,
+  `harga` decimal(18,0) DEFAULT NULL,
   `picture` varchar(100) DEFAULT NULL,
   `active` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `barang` */
+
+insert  into `barang`(`id`,`nama_barang`,`jenis`,`stock`,`harga`,`picture`,`active`) values 
+(3,'Pensil 5B Aasus','Alat Perkantoran',56,15000,'20190922123956.jpg',1),
+(4,'Kabel 10 Meter','Alat Elektronik',25,15000,'20190922125301.jpg',1),
+(5,'Sdfsdfsd','Alat Perkantoran',45,NULL,'20190922021720.jpg',1);
 
 /*Table structure for table `report` */
 
@@ -61,12 +67,14 @@ CREATE TABLE `users` (
   `role` int(1) DEFAULT NULL,
   `status` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`username`,`email`,`telepon`,`password`,`role`,`status`) values 
-(1,'galih','galih@mail.com','0991288384','123456',1,1);
+(1,'galih','galih@mail.com','0991288384','123456',1,1),
+(2,'gudang1','gg@mail.com','08823774823','123456',2,1),
+(3,'admin1','ASVA@gmail.com','2312312','678678678',2,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

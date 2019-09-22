@@ -7,7 +7,7 @@
                                     <i class="material-icons">assignment</i>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="card-title">List Barang <a href="<?= base_url().'createbarang' ?>"> <i class="material-icons">note_add</i> </a></h4>
+                                    <h4 class="card-title">List Barang | <a href="<?= base_url().'createbarangmasuk' ?>"> Add New <i class="material-icons">note_add</i> </a></h4>
                                     <div class="toolbar">
                                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                                     </div>
@@ -18,21 +18,23 @@
                                                     <!-- <th></th> -->
                                                     <th>Nama Barang</th>
                                                     <th>Jenis</th>
+                                                    <th>Harga (Rp .)</th>
                                                     <th>Stock</th>
                                                     <th>Status</th>
                                                     <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tfoot>
-                                                <tr>
+                                            <!-- <tfoot>
+                                                <tr> -->
                                                     <!-- <th></th> -->
-                                                    <th>Nama Barang</th>
+                                                    <!-- <th>Nama Barang</th>
                                                     <th>Jenis</th>
+                                                    <th>Harga (Rp .)</th>
                                                     <th>Stock</th>
                                                     <th>Status</th>
                                                     <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
-                                            </tfoot>
+                                            </tfoot> -->
                                             <tbody>
                                             <?php
                                             if($listbarangs != NULL): ?>
@@ -41,8 +43,9 @@
                                                     <!-- <td> <img src="<?= base_url().'assets/picture/'.$value['picture'] ?>"> </td> -->
                                                     <td><?= $value['nama_barang'] ?></td>
                                                     <td><?= $value['jenis'] ?></td>
+                                                    <td><?= $value['harga'] ?></td>
                                                     <td><?= $value['stock'] ?></td>
-                                                    <td><?= $value['active'] ?></td>
+                                                    <td><?= ($value['active'] == 1 ? '<span class="text-success"> Aktif </span>':'<span class="text-danger"> Tidak Aktif </span>') ?></td>
                                                     <td class="text-right">
                                                         <a href="#" class="btn btn-simple btn-info btn-icon like"><i class="material-icons">favorite</i></a>
                                                         <a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>

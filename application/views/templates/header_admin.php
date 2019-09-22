@@ -72,12 +72,6 @@
                                     <a href="<?= base_url().'listbarang' ?>">Data Barang</a>
                                 </li>
                                 <li>
-                                    <a href="<?= base_url().'createbarang' ?>">Buat Data Barang</a>
-                                </li>
-                                <li>
-                                    <a href="<?= base_url().'createbarangmasuk' ?>">Create Barang Masuk</a>
-                                </li>
-                                <li>
                                     <a href="<?= base_url().'createbarangkeluar' ?>">Create Barang Keluar</a>
                                 </li>
                                 <li>

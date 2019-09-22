@@ -27,6 +27,34 @@ class Barang_model extends CI_model
         return TRUE;
     }
 
+    public function barangMasuk($data)
+    {
+        /* Get Data */
+        $get = $this->db->select('*')
+                        ->from('barang')
+                        ->where('id',$data['nama_barang'])
+                        ->get();
+        if ($get->num_rows() > 0) {
+            $datas = $get->result();
+            $qtyOld = NULL;
+            foreach ($datas as $value) {
+                $qtyOld = $value->stock;
+            }
+            $afterSum = $qtyOld+$data['stock'];
+            $this->db->where('id',$data['nama_barang']);
+
+            $newData = array(
+                'stock'=>$afterSum
+            );
+
+            $update = $this->db->update('barang',$newData);
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+
+    }
+
     public function Get_Barang()
     {
        

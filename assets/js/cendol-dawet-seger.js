@@ -1,6 +1,20 @@
 $(document).ready(function(){
     
 
+    function af(params) {
+        alert('asd')
+    }
+
+    $("#jenis_action").on("change",function() {
+        if($(this).val() == 'baru'){
+            $("#form-create-barang").css('display','block');
+            $("#form-create-barang2").css('display','none');
+        }else if($(this).val() == 'masuk'){
+            $("#form-create-barang2").css('display','block');
+            $("#form-create-barang").css('display','none');
+        }
+    })
+
     $("#form-create-account").on("submit",function(e){
         e.preventDefault();
         var url = $("#url").val();
@@ -136,6 +150,56 @@ $(document).ready(function(){
                  });
              }
 
+            },
+            complete: function () {
+
+            },
+            error: function () {
+                swal({
+                    title: "Connection Error",
+                    type: "error",
+                    text: "Try Again !",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+
+        });
+    })
+
+    $("#form-create-barang2").on("submit",function(e) {
+        e.preventDefault();
+        var url = $("#url").val();
+        var data = new FormData(this);    
+        console.log(data)
+        $.ajax({
+            url: url+"barangmasuk",
+            data: data,
+            enctype: 'multipart/form-data',
+            type: "post",
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                console.log(res)
+                if (res.code == 1) {
+                   swal({
+                       title: "Success",
+                       type:"success",
+                       text: res.msg,
+                       timer: 2000,
+                       showConfirmButton: false
+                    });
+                    // window.location = $("#url").val()+'listbarang';
+                }else if(res.code == 2){
+                   swal({
+                       title: "Failed",
+                       type:"error",
+                       text: res.msg,
+                       timer: 2000,
+                       showConfirmButton: false
+                    });
+                }
             },
             complete: function () {
 

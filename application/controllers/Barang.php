@@ -16,6 +16,7 @@ class Barang extends CI_Controller
             if (!file_exists(APPPATH.'views/barang/'.$page.'.php')) {
                 show_404();
               }else {
+                $data['databarang'] = $this->barang_model->Get_Barang();
                 $data['titlenavbar'] = 'Create Barang Masuk';
                 $data['title'] = 'Create Barang Masuk';
                 $data['headScript'] = $this->Headscript();
@@ -26,6 +27,21 @@ class Barang extends CI_Controller
               }
         }
    
+    }
+
+    public function SaveBarangMasuk()
+    {
+        $data = $this->input->post();
+        $update = $this->barang_model->barangMasuk($data);
+        if ($update) {
+            $result = array('code'=>1,'msg'=>'Data Barang Telah Masuk','success'=>TRUE);
+            echo json_encode($result);
+            die();
+        }else{
+            $result = array('code'=>2,'msg'=>'Data Barang Gagal Masuk','success'=>TRUE);
+            echo json_encode($result);
+            die();
+        }
     }
 
     public function CreateBarangKeluar($page = 'CreateBarangKeluar')
