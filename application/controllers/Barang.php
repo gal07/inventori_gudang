@@ -159,6 +159,7 @@ class Barang extends CI_Controller
             'nama_barang'=>ucwords($this->input->post('nama_barang')),
             'jenis'=>$this->input->post('jenis'),
             'stock'=>$this->input->post('stock'),
+            'harga'=>$this->input->post('harga'),
             'picture'=>$config['file_name'],
             'active'=>$this->input->post('status'),
           );

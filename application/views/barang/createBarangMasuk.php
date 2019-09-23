@@ -83,6 +83,16 @@
                                    
 
                                     <div class="row">
+                                        <label class="col-sm-2 label-on-left">Harga</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <input required type="number" id="harga" name="harga" class="form-control" value>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
                                         <label class="col-sm-2 label-on-left">Stock</label>
                                         <div class="col-sm-10">
                                             <div class="form-group label-floating is-empty">
