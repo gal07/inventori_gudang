@@ -44,7 +44,7 @@ class Barang extends CI_Controller
         }
     }
 
-    public function CreateBarangKeluar($page = 'CreateBarangKeluar')
+    public function CreateBarangKeluar($page = 'createBarangKeluar')
     {
         if (!$this->session->userdata('username')) {
             show_404();
