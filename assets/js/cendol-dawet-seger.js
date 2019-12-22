@@ -217,5 +217,55 @@ $(document).ready(function(){
         });
     })
 
+    $("#form-out-barang").on("submit",function(e){
+        e.preventDefault();
+        var url = $("#url").val();
+        var data = new FormData(this);    
+        console.log(data)
+        $.ajax({
+            url: url+"actionkeluar",
+            data: data,
+            enctype: 'multipart/form-data',
+            type: "post",
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                console.log(res)
+                if (res.code == 1) {
+                   swal({
+                       title: "Success",
+                       type:"success",
+                       text: res.msg,
+                       timer: 2000,
+                       showConfirmButton: false
+                    });
+                    // window.location = $("#url").val()+'listbarang';
+                }else if(res.code == 3){
+                   swal({
+                       title: "Failed",
+                       type:"error",
+                       text: res.msg,
+                       timer: 2000,
+                       showConfirmButton: false
+                    });
+                }
+            },
+            complete: function () {
+
+            },
+            error: function () {
+                swal({
+                    title: "Connection Error",
+                    type: "error",
+                    text: "Try Again !",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+
+        });
+    })
+
 
 })

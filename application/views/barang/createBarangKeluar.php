@@ -3,7 +3,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <form method="get" action="#" id="form-create-barang" class="form-horizontal" enctype="multipart/form-data">
+                            <form method="get" action="#" id="form-out-barang" class="form-horizontal" enctype="multipart/form-data">
                                 <div class="card-header card-header-text" data-background-color="rose">
                                     <h4 class="card-title"><?= $titlenavbar ?></h4>
                                 </div>
@@ -11,10 +11,11 @@
                                     <div class="row">
                                         <label class="col-sm-2 label-on-left">Nama Barang</label>
                                         <div class="col-md-10 col-sm-3">
-                                            <select required class="selectpicker" name="jenis" id="jenis" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
+                                            <select required class="selectpicker" name="id" id="id" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
                                                 <option disabled selected>Pilih Barang</option>
-                                                <option value="Alat Perkantoran">Alat Perkantoran</option>
-                                                <option value="Alat Elektronik">Elektronik</option>
+                                                <?php foreach ($databarang as $value):?>
+                                                    <option value="<?= $value['id'] ?>"><?= $value['nama_barang'] ?></option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>

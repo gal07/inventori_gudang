@@ -55,11 +55,25 @@ class Barang_model extends CI_model
 
     }
 
+    public function barangKeluar($data)
+    {
+
+        /* Stock Barang - Permintaan */
+        $jumlah = array(
+            'stock'=>$data['stockbarang'] - $data['stock']
+        );
+
+        $this->db->where('id', $data['id']);
+        $this->db->update('barang', $jumlah);
+        return TRUE;
+    }
+
     public function Get_Barang()
     {
        
             $get = $this->db->select('*')
                             ->from('barang')
+                            ->where('active',1)
                             ->get();
             if ($get->num_rows() > 0) {
                 return $get->result_array();
@@ -67,6 +81,21 @@ class Barang_model extends CI_model
                 return NULL;
             }
 
+    }
+    
+    public function CompareStock($data)
+    {
+
+        $compare = $this->db->select('*')
+                            ->from('barang')
+                            ->where('id',$data['id'])
+                            ->where('stock >=',$data['stock'])
+                            ->get();
+        if ($compare->num_rows() > 0) {
+            return $compare->result();
+        }else {
+            return FALSE;
+        }
     }
     
 }

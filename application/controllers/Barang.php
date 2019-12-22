@@ -54,6 +54,7 @@ class Barang extends CI_Controller
               }else {
                 $data['titlenavbar'] = 'Create Barang Keluar';
                 $data['title'] = 'Create Barang Keluar';
+                $data['databarang'] = $this->barang_model->Get_Barang();
                 $data['headScript'] = $this->Headscript();
                 $data['footerScript'] = $this->FooterScripts();
                 $this->load->view('templates/header_admin',$data);
@@ -62,6 +63,34 @@ class Barang extends CI_Controller
               }
         }
    
+    }
+
+    public function actionBarangKeluar()
+    {
+        $checkStock = $this->barang_model->CompareStock($this->input->post());
+
+        if ($checkStock) {
+            
+            $data = array();
+            foreach ($checkStock as $value) {
+                
+                $data = array(
+                    'id'=>$this->input->post('id'),
+                    'stock'=>$this->input->post('stock'),
+                    'stockbarang'=>$value->stock
+                );
+            }
+
+            $AmbilStock = $this->barang_model->barangKeluar($data);
+            $result = array('code'=>1,'msg'=>'Barang Keluar Success','success'=>TRUE);
+            echo json_encode($result);
+
+
+        }else{
+            $result = array('code'=>3,'msg'=>'Stock Barang Kurang Dari Stock Yang Diminta','success'=>FALSE);
+            echo json_encode($result);
+        }
+    
     }
 
     public function listbarang($page = 'listbarang')

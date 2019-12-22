@@ -64,6 +64,8 @@ $route['histori'] = 'barang/histori';
 $route['listaccount'] = 'admin/listaccount';
 $route['createaccount'] = 'admin/createaccount';
 
+$route['actionkeluar'] = 'barang/actionbarangkeluar';
+
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
