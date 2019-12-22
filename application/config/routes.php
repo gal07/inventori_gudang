@@ -53,7 +53,6 @@ $route['default_controller'] = 'login';
 
 $route['createbarangmasuk'] = 'barang/CreateBarangMasuk';
 $route['savebarang'] = 'barang/SaveBarang';
-$route['createbarangkeluar'] = 'barang/CreateBarangKeluar';
 $route['barangmasuk'] = 'barang/SaveBarangMasuk';
 $route['createbarang'] = 'barang/BuatDataBarang';
 $route['listbarang'] = 'barang/listbarang';
@@ -65,6 +64,7 @@ $route['listaccount'] = 'admin/listaccount';
 $route['createaccount'] = 'admin/createaccount';
 
 $route['actionkeluar'] = 'barang/actionbarangkeluar';
+$route['createbarangkeluar'] = 'barang/CreateBarangKeluar';
 
 
 $route['404_override'] = '';
