@@ -40,6 +40,7 @@ class Login extends CI_Controller
             $sessions = array();
             foreach ($login as $value) {
              $sessions = array(
+                "id"=>$value->id,
                 "username"=>$value->username,
                 "password"=>$value->password,
                 "email"=>$value->email,

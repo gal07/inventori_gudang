@@ -65,6 +65,8 @@ $route['createaccount'] = 'admin/createaccount';
 
 $route['actionkeluar'] = 'barang/actionbarangkeluar';
 $route['createbarangkeluar'] = 'barang/CreateBarangKeluar';
+$route['deletebarang'] = 'barang/deletebarang';
+
 
 
 $route['404_override'] = '';

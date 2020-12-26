@@ -24,6 +24,7 @@ class Barang_model extends CI_model
     public function create($data)
     {
         $this->db->insert('barang',$data);
+        $this->report($this->db->insert_id(),$data['stock'],$this->session->userdata('username'),1);
         return TRUE;
     }
 
@@ -48,6 +49,7 @@ class Barang_model extends CI_model
             );
 
             $update = $this->db->update('barang',$newData);
+            $this->report($data['nama_barang'],$data['stock'],$this->session->userdata('username'),1);
             return TRUE;
         }else{
             return FALSE;
@@ -65,6 +67,7 @@ class Barang_model extends CI_model
 
         $this->db->where('id', $data['id']);
         $this->db->update('barang', $jumlah);
+        $this->report($data['id'],$data['stock'],$this->session->userdata('username'),2);
         return TRUE;
     }
 
@@ -73,7 +76,6 @@ class Barang_model extends CI_model
        
             $get = $this->db->select('*')
                             ->from('barang')
-                            ->where('active',1)
                             ->get();
             if ($get->num_rows() > 0) {
                 return $get->result_array();
@@ -95,6 +97,56 @@ class Barang_model extends CI_model
             return $compare->result();
         }else {
             return FALSE;
+        }
+    }
+
+    public function delete($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('barang');
+    }
+
+    public function report($id,$qty,$by,$report)
+    {
+        $data = array(
+            'id_barang'=>$id,
+            'quantity'=>$qty,
+            'action_by'=>$by,
+            'jenis_report'=>$report,
+            'waktu'=>date('Y-m-d')
+        );
+        
+        $this->db->insert('report',$data);
+        return TRUE;
+
+    }
+    
+    public function getReport(){
+
+        $get = $this->db
+                    ->select('*')
+                    ->from('report')
+                    ->get();
+
+        if ($get->num_rows() > 0) {
+            return $get->result_array();
+        }else {
+            return NULL;
+        }
+
+    }
+
+    public function getJenisReport()
+    {
+        $get = $this->db
+                    ->select('*')
+                    ->from('jenis_report')
+                    ->get();
+
+        if ($get->num_rows() > 0) {
+            return $get->result_array();
+        }else {
+            return NULL;
         }
     }
     

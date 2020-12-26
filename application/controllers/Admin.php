@@ -153,11 +153,11 @@ class Admin extends CI_Controller
                 });
         
                 // Delete a record
-                table.on("click", ".remove", function(e) {
-                    $tr = $(this).closest("tr");
-                    table.row($tr).remove().draw();
-                    e.preventDefault();
-                });
+                // table.on("click", ".remove", function(e) {
+                //     $tr = $(this).closest("tr");
+                //     table.row($tr).remove().draw();
+                //     e.preventDefault();
+                // });
         
                 //Like record
                 table.on("click", ".like", function() {

@@ -15,6 +15,7 @@ $(document).ready(function(){
         }
     })
 
+    // Membuat akun 
     $("#form-create-account").on("submit",function(e){
         e.preventDefault();
         var url = $("#url").val();
@@ -90,6 +91,7 @@ $(document).ready(function(){
         });
     })
 
+    // Barang Masuk (Barang baru)
     $("#form-create-barang").on("submit",function(e){
         e.preventDefault();
         var url = $("#url").val();
@@ -167,6 +169,7 @@ $(document).ready(function(){
         });
     })
 
+    // Barang masuk (barang yg sudah ada) 
     $("#form-create-barang2").on("submit",function(e) {
         e.preventDefault();
         var url = $("#url").val();
@@ -217,6 +220,7 @@ $(document).ready(function(){
         });
     })
 
+    // Barang Keluar
     $("#form-out-barang").on("submit",function(e){
         e.preventDefault();
         var url = $("#url").val();
@@ -266,6 +270,73 @@ $(document).ready(function(){
 
         });
     })
+
+    // Hapus Data Barang 
+    let table = $("#datatables").DataTable();
+    table.on("click", ".hpsBarang", function(e) {
+        var url = $("#url").val();
+        var id = $(this).attr("id");
+        var data = {
+            id:id
+         };
+
+        swal({
+         title: 'Yakin untuk menghapus data ?',
+         text: "Data akan dihapus permanen !",
+         type: 'warning',
+         showCancelButton: true,
+         confirmButtonClass: 'btn btn-success',
+         cancelButtonClass: 'btn btn-danger',
+         confirmButtonText: 'Hapus',
+         buttonsStyling: false
+         }).then(function() {
+ 
+             $.ajax({
+                 url: url+"deletebarang",
+                 data: data,
+                 enctype: 'multipart/form-data',
+                 type: "POST",
+                 dataType: "json",
+                 success: function (res) {
+                    // $tr = $(this).closest("tr");
+                    // table.row($tr).remove().draw();
+ 
+                     console.log(res)
+                     if (res.code == 1) {
+                     swal({
+                         title: "Success",
+                         type:"success",
+                         text: res.msg,
+                         timer: 2000,
+                         showConfirmButton: false
+                         });
+                         
+                         window.location = $("#url").val()+'listbarang';
+
+                     }
+ 
+                    
+                 },
+                 complete: function () {
+ 
+                 },
+                 error: function () {
+                     swal({
+                         title: "Connection Error",
+                         type: "error",
+                         text: "Try Again !",
+                         timer: 2000,
+                         showConfirmButton: false
+                     });
+                 }
+ 
+             });
+ 
+         });
+ 
+
+
+    });
 
 
 })

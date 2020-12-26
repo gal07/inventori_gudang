@@ -1,3 +1,4 @@
+
             <div class="content">
                 <div class="container-fluid">
                     <div class="header text-center">
@@ -7,24 +8,34 @@
                         <div class="col-md-12">
                             <div class="card card-plain">
                                 <div class="card-content">
+                                    <?php if($reportData): ?>
                                     <ul class="timeline">
-                                        <li class="timeline-inverted">
-                                            <div class="timeline-badge danger">
+                                        <?php foreach($reportData as $value): ?>
+                                        <li class="<?= ($value['jenis_report'] == 1 ? '':'timeline-inverted') ?>">
+                                            <div class="timeline-badge <?= ($value['jenis_report'] == 1 ? 'success':'danger') ?>">
                                                 <i class="material-icons">card_travel</i>
                                             </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
-                                                    <span class="label label-danger">Some Title</span>
+                                                    <span class="label label-<?= ($value['jenis_report'] == 1 ? 'success':'danger') ?>"><?= $jenisReport[$value['jenis_report']] ?> - <?= $jenisBarang[$value['id_barang']] ?></span>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Wifey made the best Father's Day meal ever. So thankful so happy so blessed. Thank you for making my family We just had fun with the “future” theme !!! It was a fun night all together ... The always rude Kanye Show at 2am Sold Out Famous viewing @ Figueroa and 12th in downtown.</p>
+                                                    <p><b>Deksripsi :</b></p>
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                                    <p><b>Nama Barang / Qty :</b></p>
+                                                    <p><?= $jenisBarang[$value['id_barang']] ?> : <?= $value['quantity'] ?> Qty</p>
                                                 </div>
-                                                <h6>
-                                                    <i class="ti-time"></i> 11 hours ago via Twitter
-                                                </h6>
+                                                <br>
+                                                <div>
+                                                    <p><b>Waktu :</b></p>
+                                                    <i class="ti-time"></i> <?= $value['waktu'] ?>
+                                                </div>
+                                                   
+                                               
                                             </div>
                                         </li>
-                                        <li>
+                                        <?php endforeach; ?>
+                                        <!-- <li>
                                             <div class="timeline-badge success">
                                                 <i class="material-icons">extension</i>
                                             </div>
@@ -35,21 +46,7 @@
                                                 <div class="timeline-body">
                                                     <p>Thank God for the support of my wife and real friends. I also wanted to point out that it’s the first album to go number 1 off of streaming!!! I love you Ellen and also my number one design rule of anything I do from shoes to music to homes is that Kim has to like it....</p>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="timeline-inverted">
-                                            <div class="timeline-badge info">
-                                                <i class="material-icons">fingerprint</i>
-                                            </div>
-                                            <div class="timeline-panel">
-                                                <div class="timeline-heading">
-                                                    <span class="label label-info">Another Title</span>
-                                                </div>
-                                                <div class="timeline-body">
-                                                    <p>Called I Miss the Old Kanye That’s all it was Kanye And I love you like Kanye loves Kanye Famous viewing @ Figueroa and 12th in downtown LA 11:10PM</p>
-                                                    <p>What if Kanye made a song about Kanye Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own It wasn’t any Kanyes Set on his goals Kanye</p>
-                                                    <hr>
-                                                    <div class="dropdown pull-left">
+                                                <div class="dropdown pull-left">
                                                         <button type="button" class="btn btn-round btn-info dropdown-toggle" data-toggle="dropdown">
                                                             <i class="material-icons">build</i>
                                                             <span class="caret"></span>
@@ -70,23 +67,10 @@
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                </div>
                                             </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-badge warning">
-                                                <i class="material-icons">flight_land</i>
-                                            </div>
-                                            <div class="timeline-panel">
-                                                <div class="timeline-heading">
-                                                    <span class="label label-warning">Another One</span>
-                                                </div>
-                                                <div class="timeline-body">
-                                                    <p>Tune into Big Boy's 92.3 I'm about to play the first single from Cruel Winter Tune into Big Boy's 92.3 I'm about to play the first single from Cruel Winter also to Kim’s hair and makeup Lorraine jewelry and the whole style squad at Balmain and the Yeezy team. Thank you Anna for the invite thank you to the whole Vogue team</p>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        </li> -->
                                     </ul>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>

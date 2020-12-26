@@ -144,8 +144,24 @@ class Barang extends CI_Controller
               }else {
                 $data['titlenavbar'] = 'Histori Barang';
                 $data['title'] = 'Histori Barang';
+
+                $data['jenisReport'] = array();
+                $jenisReport = $this->barang_model->getJenisReport();
+                foreach ($jenisReport as $value) {
+                    $data['jenisReport'][$value['id']] = $value['name'];
+                }
+
+                $data['jenisBarang'] = array();
+                $jenisBarang = $this->barang_model->Get_Barang();
+                foreach ($jenisBarang as $values) {
+                    $data['jenisBarang'][$values['id']] = $values['nama_barang'];
+                }
+
+
+
                 $data['headScript'] = $this->Headscript();
                 $data['footerScript'] = $this->FooterScripts();
+                $data['reportData'] = $this->barang_model->getReport();
                 $this->load->view('templates/header_admin',$data);
                 $this->load->view('barang/'.$page,$data);
                 $this->load->view('templates/footer');
@@ -213,6 +229,15 @@ class Barang extends CI_Controller
         }
 
         
+
+    }
+
+    public function deletebarang()
+    {
+        $id = $this->input->post('id');
+        $delete = $this->barang_model->delete($id);
+        $result = array('code'=>1,'msg'=>'Data telah terhapus.','success'=>FALSE);
+        echo json_encode($result);
 
     }
 
