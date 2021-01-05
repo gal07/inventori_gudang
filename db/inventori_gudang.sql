@@ -39,7 +39,7 @@ insert  into `barang`(`id`,`nama_barang`,`jenis`,`stock`,`harga`,`picture`,`acti
 (9,'Asus ROG 2000','Alat Elektronik',52,2000000,'20200104072550.jpg',1),
 (10,'Firebase','Alat Elektronik',55,450000,'20200921053433.jpg',1),
 (11,'Mouse Gaming HP M160','Alat Elektronik',5,160000,'20201226023057.jpg',1),
-(12,'Mouse Gaming AULA DPI 2100','Alat Elektronik',100,70000,'20201226052816.jpg',1),
+(12,'Mouse Gaming AULA DPI 2100','Alat Elektronik',90,70000,'20201226052816.jpg',1),
 (13,'Mouse Gaming Red Dragon M920','Alat Elektronik',55,100000,'20201226055752.jpg',1);
 
 /*Table structure for table `barang_out` */
@@ -56,6 +56,44 @@ CREATE TABLE `barang_out` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `barang_out` */
+
+/*Table structure for table `gudang` */
+
+DROP TABLE IF EXISTS `gudang`;
+
+CREATE TABLE `gudang` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+/*Data for the table `gudang` */
+
+insert  into `gudang`(`id`,`nama`) values 
+(1,'Gudang Jakarta'),
+(2,'Gudang Bekasi');
+
+/*Table structure for table `inven_gudang` */
+
+DROP TABLE IF EXISTS `inven_gudang`;
+
+CREATE TABLE `inven_gudang` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `id_gudang` int(5) NOT NULL,
+  `id_barang` int(10) NOT NULL,
+  `qty` int(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `gudangConstraint` (`id_gudang`),
+  KEY `barangConstraint` (`id_barang`),
+  CONSTRAINT `barangConstraint` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `gudangConstraint` FOREIGN KEY (`id_gudang`) REFERENCES `gudang` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `inven_gudang` */
+
+insert  into `inven_gudang`(`id`,`id_gudang`,`id_barang`,`qty`) values 
+(1,1,3,20),
+(2,1,12,63);
 
 /*Table structure for table `jenis_report` */
 
@@ -85,7 +123,7 @@ CREATE TABLE `report` (
   `jenis_report` int(1) DEFAULT NULL,
   `waktu` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 /*Data for the table `report` */
 
@@ -101,7 +139,8 @@ insert  into `report`(`id`,`id_barang`,`quantity`,`action_by`,`jenis_report`,`wa
 (9,13,25,'gudang1',2,'2020-12-26'),
 (10,13,25,'gudang1',2,'2020-12-26'),
 (11,13,12,'gudang1',1,'2020-12-26'),
-(12,13,7,'gudang1',2,'2020-12-26');
+(12,13,7,'gudang1',2,'2020-12-26'),
+(13,12,10,'gudang1',2,'2020-12-26');
 
 /*Table structure for table `users` */
 
@@ -109,22 +148,24 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
-  `username` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `telepon` varchar(13) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `role` int(1) DEFAULT NULL,
-  `status` int(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `username` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `telepon` varchar(13) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `role` int(1) NOT NULL,
+  `gudang` int(5) DEFAULT NULL,
+  `status` int(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDPARENT` (`gudang`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`username`,`email`,`telepon`,`password`,`role`,`status`) values 
-(1,'galih','galih@mail.com','0991288384','123456',1,1),
-(2,'gudang1','gg@mail.com','08823774823','123456',2,1),
-(3,'admin1','ASVA@gmail.com','2312312','678678678',2,1),
-(4,'nm1','nn@nn.com','08891277388','12345',2,1);
+insert  into `users`(`id`,`username`,`email`,`telepon`,`password`,`role`,`gudang`,`status`) values 
+(1,'galih','galih@mail.com','0991288384','123456',1,0,1),
+(2,'gudang1','gg@mail.com','08823774823','123456',2,0,1),
+(3,'admin1','ASVA@gmail.com','2312312','678678678',2,0,1),
+(4,'nm1','nn@nn.com','08891277388','12345',2,0,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
