@@ -1,95 +1,122 @@
-<?php
+<?php 
 
-class Admin extends CI_Controller
+class Gudang extends CI_Controller
 {
 
-    public function index($page = 'dashboard')
+    public function index($page = 'index')
     {
+     
         if (!$this->session->userdata('username')) {
             show_404();
-        } else {
-            if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
+        }else {
+            if (!file_exists(APPPATH.'views/gudang/'.$page.'.php')) {
                 show_404();
               }else {
-                $data['titlenavbar'] = 'Dashboard';
-                $data['title'] = 'Dashboard Admin';
-                $data['headScript'] = $this->Headscript();
-                $data['footerScript'] = $this->FooterScripts();
-                $this->load->view('templates/header_admin',$data);
-                $this->load->view('admin/'.$page,$data);
-                $this->load->view('templates/footer');
-      
-              }
-        }
-    
-    }
-
-    public function listaccount($page = 'listaccount')
-    {
-        if (!$this->session->userdata('username')) {
-            show_404();
-        } else {
-            if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
-                show_404();
-              }else {
-
-                $data['gudang'] = array();
-                $datagudang = $this->gudang_model->getDataGudang();
-                foreach ($datagudang as $value) {
-                    $data['gudang'][$value['id']] = $value['nama'];
-                }
-
-                $data['data_account'] = $this->users_model->getAllAccount();
-                $data['titlenavbar'] = 'List Account';
-                $data['title'] = 'List Account';
-                $data['headScript'] = $this->Headscript();
-                $data['footerScript'] = $this->FooterScripts('datatable');
-                $this->load->view('templates/header_admin',$data);
-                $this->load->view('admin/'.$page,$data);
-                $this->load->view('templates/footer');
-      
-              }
-        }
-    }
-
-    public function createaccount($page = 'createaccount')
-    {
-        if (!$this->session->userdata('username')) {
-            show_404();
-        } else {
-            if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
-                show_404();
-              }else {
-
-                if (isset($_POST['username']) != NULL) {
-                    $save = $this->users_model->createAccount($this->input->post());
-                    $message = array();
-                    if ($save) {
-                        $message = array(
-                            "success"=>1,
-                            "message"=>"Akun Telah Terbuat",
-                        );
-                    }else {
-                        $message = array(
-                            "success"=>0,
-                            "message"=>"Username Atau Email Sudah Digunakan",
-
-                        );
-                    }
-                    echo json_encode($message);
-                    die();
-                }
                 $data['datagudang'] = $this->gudang_model->getDataGudang();
-                $data['titlenavbar'] = 'Create Account';
-                $data['title'] = 'Create Account';
+                $data['titlenavbar'] = 'List Gudang';
+                $data['title'] = 'List Gudang';
                 $data['headScript'] = $this->Headscript();
                 $data['footerScript'] = $this->FooterScripts();
                 $this->load->view('templates/header_admin',$data);
-                $this->load->view('admin/'.$page,$data);
+                $this->load->view('gudang/'.$page,$data);
                 $this->load->view('templates/footer');
-      
               }
         }
+        
+        
+    }
+
+    public function createnewgudang($page = '_formcreategudang')
+    {
+     
+        if (!$this->session->userdata('username')) {
+            show_404();
+        }else {
+            if (!file_exists(APPPATH.'views/gudang/'.$page.'.php')) {
+                show_404();
+              }else {
+
+
+                $data['titlenavbar'] = 'Create Gudang';
+                $data['title'] = 'Create Gudang';
+                $data['headScript'] = $this->Headscript();
+                $data['footerScript'] = $this->FooterScripts();
+                $this->load->view('templates/header_admin',$data);
+                $this->load->view('gudang/'.$page,$data);
+                $this->load->view('templates/footer');
+
+                        
+              }
+        }
+    }
+
+    public function savegudang()
+    {
+         if ($this->session->userdata('role') == 1) {
+
+            $data = array(
+                "nama"=>ucwords($this->input->post('nama')),
+                "status"=>$this->input->post('status'),
+            );
+            $save = $this->gudang_model->saveDataGudang($data);
+            if ($save) {
+                $result = array('code'=>1,'msg'=>'Data Telah Terbuat','success'=>TRUE);
+                echo json_encode($result);
+            } else {
+                $result = array('code'=>3,'msg'=>'Something Error','success'=>TRUE);
+                echo json_encode($result);
+            }
+            
+            
+
+         } else {
+           
+            $result = array('code'=>3,'msg'=>'User Role tidak sesuai','success'=>TRUE);
+            echo json_encode($result);
+
+         }
+         
+        
+    }
+
+    public function toggleStatus()
+    {
+        $toggle = $this->gudang_model->toggleStatus($this->input->post('id'));
+        if ($toggle) {
+            $result = array('code'=>1,'msg'=>'Berhasil merubah status','success'=>TRUE);
+            echo json_encode($result);
+        } else {
+            $result = array('code'=>3,'msg'=>'Something Error','success'=>TRUE);
+            echo json_encode($result);
+        }
+        
+    }
+
+    public function deleteGudang()
+    {
+        $Isexists = $this->gudang_model->existsInInventory($this->input->post('id'));
+        if ($Isexists) {
+
+            
+            $result = array('code'=>3,'msg'=>'Gagal Menghapus, Karena gudang ini masih memiliki inventory aktif','success'=>TRUE);
+            echo json_encode($result);
+
+
+        } else {
+            $delete = $this->gudang_model->delete($this->input->post('id'));
+            if ($delete) {
+                
+                $result = array('code'=>1,'msg'=>'Data Gudang Telah Terhapus','success'=>TRUE);
+                echo json_encode($result);
+
+            } else {
+
+                $result = array('code'=>3,'msg'=>'Something Error','success'=>TRUE);
+                echo json_encode($result);
+            }
+
+        }
+        
     }
 
     public function Headscript()
@@ -160,11 +187,11 @@ class Admin extends CI_Controller
                 });
         
                 // Delete a record
-                // table.on("click", ".remove", function(e) {
-                //     $tr = $(this).closest("tr");
-                //     table.row($tr).remove().draw();
-                //     e.preventDefault();
-                // });
+                table.on("click", ".remove", function(e) {
+                    $tr = $(this).closest("tr");
+                    table.row($tr).remove().draw();
+                    e.preventDefault();
+                });
         
                 //Like record
                 table.on("click", ".like", function() {

@@ -1,3 +1,4 @@
+            
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -19,7 +20,7 @@
                                                     <th>Email</th>
                                                     <th>Telepon</th>
                                                     <th>Status</th>
-                                                    <th>Date</th>
+                                                    <th>Linked</th>
                                                     <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </thead>
@@ -29,7 +30,7 @@
                                                     <th>Email</th>
                                                     <th>Telepon</th>
                                                     <th>Status</th>
-                                                    <th>Date</th>
+                                                    <th>Linked</th>
                                                     <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </tfoot>
@@ -42,7 +43,7 @@
                                                             <td> <?= $value->email ?> </td>
                                                             <td><?= $value->telepon ?></td>
                                                             <td><?= $value->status ?></td>
-                                                            <td>2008/12/11</td>
+                                                            <td><?= $gudang[$value->gudang] ?></td>
                                                             <td class="text-right">
                                                                 <a href="#" class="btn btn-simple btn-info btn-icon like"><i class="material-icons">favorite</i></a>
                                                                 <a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>

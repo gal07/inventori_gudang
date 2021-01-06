@@ -60,6 +60,21 @@
                         </a>
                     </li>
                     <li>
+                        <a data-toggle="collapse" href="#pagesExamples1">
+                            <i class="material-icons">image</i>
+                            <p>Gudang
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="pagesExamples1">
+                            <ul class="nav">
+                                <li>
+                                    <a href="<?= base_url().'gudang' ?>">List Gudang</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
                         <a data-toggle="collapse" href="#pagesExamples">
                             <i class="material-icons">image</i>
                             <p>Barang

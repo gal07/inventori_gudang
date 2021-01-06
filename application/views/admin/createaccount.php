@@ -13,7 +13,7 @@
                                         <div class="col-sm-10">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="text" name="username" id="username" class="form-control" value="">
+                                                <input required type="text" name="username" id="username" class="form-control" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -22,7 +22,7 @@
                                         <div class="col-sm-10">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="email" id="email" name="email" class="form-control" value>
+                                                <input required type="email" id="email" name="email" class="form-control" value>
                                             </div>
                                         </div>
                                     </div>
@@ -31,7 +31,7 @@
                                         <div class="col-sm-10">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="number" class="form-control" name="telepon" id="telepon">
+                                                <input required type="number" class="form-control" name="telepon" id="telepon">
                                             </div>
                                         </div>
                                     </div>
@@ -40,11 +40,22 @@
                                         <div class="col-sm-10">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="password" name="password" id="password" required class="form-control">
+                                                <input required type="password" name="password" id="password" required class="form-control">
                                             </div>
-                                            <button type="submit" class="btn btn-rose">Submit</button>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Linked</label>
+                                        <div class="col-sm-10">
+                                        <select required class="selectpicker" name="gudang" id="gudang" data-style="btn btn-rose btn-round" title="Pilih Gudang" data-size="7">
+                                            <?php foreach ($datagudang as $value):?>
+                                                <option value="<?= $value['id'] ?>" ><?= $value['nama'] ?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                        <button type="submit" class="btn btn-rose">Submit</button>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </form>
                         </div>

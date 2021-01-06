@@ -13,6 +13,7 @@ class Users_model extends CI_model
             "email"=>$data["email"],
             "telepon"=>$data["telepon"],
             "password"=>$data["password"],
+            "gudang"=>$data["gudang"],
             "role"=>2,
             "status"=>1
         );

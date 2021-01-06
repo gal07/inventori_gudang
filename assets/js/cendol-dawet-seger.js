@@ -23,6 +23,7 @@ $(document).ready(function(){
         var email = $("#email").val();
         var telepon = $("#telepon").val();
         var password = $("#password").val();
+        var gudang = $("#gudang").val();
 
         if (password.length == '') {
             swal({
@@ -49,6 +50,7 @@ $(document).ready(function(){
             email:email,
             telepon:telepon,
             password:password,
+            gudang:gudang
         }
         $.ajax({
             url: url+"createaccount",
@@ -338,5 +340,131 @@ $(document).ready(function(){
 
     });
 
+
+    // create gudang
+    $("#form-create-gudang").on("submit",function(e){
+        e.preventDefault();
+        var url = $("#url").val();
+        var data = new FormData(this);    
+        console.log(data)
+        $.ajax({
+            url: url+"savegudang",
+            data: data,
+            enctype: 'multipart/form-data',
+            type: "post",
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                console.log(res)
+                if (res.code == 1) {
+                    swal({
+                        title: "Success",
+                        type:"success",
+                        text: res.msg,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    window.location = $("#url").val()+'gudang';
+                }else if(res.code == 3){
+                    swal({
+                        title: "Failed",
+                        type:"error",
+                        text: res.msg,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            },
+            complete: function () {
+
+            },
+            error: function () {
+                swal({
+                    title: "Connection Error",
+                    type: "error",
+                    text: "Try Again !",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+
+        });
+    })
+
+    // toggleStatus
+    let table1 = $("#datatables").DataTable();
+    table1.on("click", ".toggleStatus", function(e) {
+        var url = $("#url").val();
+        var types = $(this).attr("types");
+        var id = $(this).attr("id");
+        var data = {
+            id:id
+         };
+
+        swal({
+         title: 'Apakah anda yakin ingin '+types+' data ini ?',
+         type: 'warning',
+         showCancelButton: true,
+         confirmButtonClass: 'btn btn-success',
+         cancelButtonClass: 'btn btn-danger',
+         confirmButtonText: (types == 'menghapus' ? 'Hapus':'Update'),
+         buttonsStyling: false
+         }).then(function() {
+             var targetUrl = (types == 'menghapus' ? 'gudang/deleteGudang':'gudang/toggleStatus')
+             $.ajax({
+                 url: url+targetUrl,
+                 data: data,
+                 enctype: 'multipart/form-data',
+                 type: "POST",
+                 dataType: "json",
+                 success: function (res) {
+                    // $tr = $(this).closest("tr");
+                    // table.row($tr).remove().draw();
+ 
+                     console.log(res)
+                     if (res.code == 1) {
+                     swal({
+                         title: "Success",
+                         type:"success",
+                         text: res.msg,
+                         timer: 2000,
+                         showConfirmButton: false
+                         });
+                         
+                         window.location = $("#url").val()+'gudang';
+
+                     }else{
+                        swal({
+                            title: "Failed",
+                            type:"error",
+                            text: res.msg,
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                     }
+ 
+                    
+                 },
+                 complete: function () {
+ 
+                 },
+                 error: function () {
+                     swal({
+                         title: "Connection Error",
+                         type: "error",
+                         text: "Try Again !",
+                         timer: 2000,
+                         showConfirmButton: false
+                     });
+                 }
+ 
+             });
+ 
+         });
+ 
+
+
+    });
 
 })

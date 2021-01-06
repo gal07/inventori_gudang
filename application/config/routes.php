@@ -67,7 +67,8 @@ $route['actionkeluar'] = 'barang/actionbarangkeluar';
 $route['createbarangkeluar'] = 'barang/CreateBarangKeluar';
 $route['deletebarang'] = 'barang/deletebarang';
 
-
+$route['createnewgudang'] = 'gudang/createnewgudang';
+$route['savegudang'] = 'gudang/savegudang';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
