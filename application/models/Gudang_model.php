@@ -22,6 +22,20 @@ class Gudang_model extends CI_model
        
     }
 
+    public function getDetailGudang($id)
+    {
+        $get = $this->db->select("*")
+                        ->from("gudang")
+                        ->where(array("id"=>$id,"softdelete"=>0))
+                        ->get();
+        if ($get->num_rows() > 0) {
+            return $get->result();
+        } else {
+            return FALSE;
+        }
+        
+    }
+
     public function saveDataGudang($data)
     {
         $save = $this->db->insert('gudang',$data);
@@ -65,7 +79,7 @@ class Gudang_model extends CI_model
     {
         $get = $this->db->select('*')
                         ->from('inven_gudang')
-                        ->where('id',$id)
+                        ->where('id_gudang',$id)
                         ->get();
         if ($get->num_rows() > 0) {
             return TRUE;
@@ -96,6 +110,25 @@ class Gudang_model extends CI_model
             }
 
         }else{
+            return FALSE;
+        }
+        
+    }
+
+    public function editgudang($data)
+    {
+        
+        $newData = array(
+            "nama"=>$data["nama"],
+            "status"=>$data["status"],
+        );
+
+        $this->db->where("id",$data["id"]);
+        $update = $this->db->update("gudang",$newData);
+
+        if ($update) {
+            return TRUE;
+        } else {
             return FALSE;
         }
         

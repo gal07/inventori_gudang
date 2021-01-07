@@ -1,4 +1,3 @@
-            
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -42,12 +41,12 @@
                                                             <td><?= $value->username ?></td>
                                                             <td> <?= $value->email ?> </td>
                                                             <td><?= $value->telepon ?></td>
-                                                            <td><?= $value->status ?></td>
+                                                            <td><?= ($value->status == 1 ? '<span class="text-success"> Aktif </span>':'<span class="text-danger"> Tidak Aktif </span>') ?></td>
                                                             <td><?= $gudang[$value->gudang] ?></td>
                                                             <td class="text-right">
-                                                                <a href="#" class="btn btn-simple btn-info btn-icon like"><i class="material-icons">favorite</i></a>
-                                                                <a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
-                                                                <a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="material-icons">close</i></a>
+                                                                <a href="<?= base_url() . 'editaccount' ?>?id=<?=$value->id?>" class="btn btn-simple btn-info btn-icon"><i class="material-icons">create</i></a>
+                                                                <a href="#" types="mengubah" id="<?= $value->id ?>" class="btn btn-simple <?= ($value->status == 1 ? 'btn-success':'btn-danger') ?> btn-icon toggleStatususer"><i class="material-icons">power_settings_new</i></a>
+                                                                <a href="#" types="menghapus" id="<?= $value->id ?>"class="btn btn-simple btn-danger btn-icon toggleStatususer"><i class="material-icons">delete</i></a>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach;?>

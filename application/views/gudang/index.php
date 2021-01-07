@@ -40,8 +40,9 @@
                                     <td><?= $value['nama'] ?></td>
                                     <td><?= ($value['status'] == 1 ? '<span class="text-success"> Aktif </span>':'<span class="text-danger"> Tidak Aktif </span>') ?></td>
                                     <td class="text-right">
-                                        <a href="#" id="<?= $value['id'] ?>" types="menghapus" class="btn btn-simple btn-danger btn-icon toggleStatus"><i class="material-icons">delete</i></a>
-                                        <a href="#" id="<?= $value['id'] ?>" types="mengubah" class="btn btn-simple <?= ($value['status'] == 1 ? 'btn-success':'btn-danger') ?> btn-icon toggleStatus"><i class="material-icons">power_settings_new</i></a>
+                                        <a href="<?= base_url() . 'editgudang' ?>?id=<?=$value['id']?>" class="btn btn-simple btn-info btn-icon"><i class="material-icons">create</i></a>
+                                        <a href="#" id="<?= $value['id'] ?>" types="menghapus" class="btn btn-simple btn-danger btn-icon toggleStatusgudang"><i class="material-icons">delete</i></a>
+                                        <a href="#" id="<?= $value['id'] ?>" types="mengubah" class="btn btn-simple <?= ($value['status'] == 1 ? 'btn-success':'btn-danger') ?> btn-icon toggleStatusgudang"><i class="material-icons">power_settings_new</i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

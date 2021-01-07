@@ -29,13 +29,26 @@ class Gudang extends CI_Controller
     public function createnewgudang($page = '_formcreategudang')
     {
      
-        if (!$this->session->userdata('username')) {
-            show_404();
-        }else {
+        if ($this->session->userdata('role') == 1) {
             if (!file_exists(APPPATH.'views/gudang/'.$page.'.php')) {
                 show_404();
               }else {
-
+                
+                if (isset($_POST['nama']) != NULL) {
+                    $data = array(
+                        "nama"=>ucwords($this->input->post('nama')),
+                        "status"=>$this->input->post('status'),
+                    );
+                    $save = $this->gudang_model->saveDataGudang($data);
+                    if ($save) {
+                        $result = array('code'=>1,'msg'=>'Data Telah Terbuat','success'=>TRUE);
+                        echo json_encode($result);
+                    } else {
+                        $result = array('code'=>3,'msg'=>'Something Error','success'=>TRUE);
+                        echo json_encode($result);
+                    }
+                    die();
+                }
 
                 $data['titlenavbar'] = 'Create Gudang';
                 $data['title'] = 'Create Gudang';
@@ -47,37 +60,51 @@ class Gudang extends CI_Controller
 
                         
               }
+        }else {
+            show_404();
         }
     }
 
-    public function savegudang()
+    public function editgudang($page = '_formeditgudang')
     {
-         if ($this->session->userdata('role') == 1) {
+        if ($this->session->userdata('role') == 1) {
+            if (!file_exists(APPPATH.'views/gudang/'.$page.'.php')) {
+                show_404();
+              }else {
+                
+                if (isset($_POST['nama']) != NULL) {
+                    $data = array(
+                        "id"=>$this->input->post('id'),
+                        "nama"=>ucwords($this->input->post('nama')),
+                        "status"=>$this->input->post('status'),
+                    );
+                    $save = $this->gudang_model->editgudang($data);
+                    if ($save) {
+                        $result = array('code'=>1,'msg'=>'Data Telah Terbuat','success'=>TRUE);
+                        echo json_encode($result);
+                    } else {
+                        $result = array('code'=>3,'msg'=>'Something Error','success'=>TRUE);
+                        echo json_encode($result);
+                    }
+                    die();
+                }
 
-            $data = array(
-                "nama"=>ucwords($this->input->post('nama')),
-                "status"=>$this->input->post('status'),
-            );
-            $save = $this->gudang_model->saveDataGudang($data);
-            if ($save) {
-                $result = array('code'=>1,'msg'=>'Data Telah Terbuat','success'=>TRUE);
-                echo json_encode($result);
-            } else {
-                $result = array('code'=>3,'msg'=>'Something Error','success'=>TRUE);
-                echo json_encode($result);
-            }
-            
-            
+                $data['datagudang'] = $this->gudang_model->getDetailGudang($this->input->get('id'));
+                $data['titlenavbar'] = 'Edit Gudang';
+                $data['title'] = 'Edit Gudang';
+                $data['headScript'] = $this->Headscript();
+                $data['footerScript'] = $this->FooterScripts();
+                $this->load->view('templates/header_admin',$data);
+                $this->load->view('gudang/'.$page,$data);
+                $this->load->view('templates/footer');
 
-         } else {
-           
-            $result = array('code'=>3,'msg'=>'User Role tidak sesuai','success'=>TRUE);
-            echo json_encode($result);
-
-         }
-         
-        
+                        
+              }
+        }else {
+            show_404();
+        }
     }
+
 
     public function toggleStatus()
     {

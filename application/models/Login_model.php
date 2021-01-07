@@ -10,7 +10,7 @@ class Login_model extends CI_model
     {
         $compare = array(
             'username'=>$data['username'],
-            'password'=>$data['password']
+            'password'=>$data['password'],
         );
 
         $login = $this->db->select('*')
@@ -22,6 +22,20 @@ class Login_model extends CI_model
         }else{
             return false;
         }
+    }
+
+    public function checkStatus($username)
+    {
+        $check = $this->db->select('*')
+                          ->from('users')
+                          ->where(array("username"=>$username,"status"=>1,"softdelete"=>0))
+                          ->get();
+        if ($check->num_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+        
     }
 
 

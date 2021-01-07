@@ -34,9 +34,23 @@ class Login extends CI_Controller
             "password"=>$this->input->post('password')
         );
 
-        $login = $this->login_model->login($data);
         $message = array();
+        $login = $this->login_model->login($data);
         if ($login) {
+
+            // Check user status
+            $check = $this->login_model->checkStatus($this->input->post('username'));
+            if (!$check) {
+
+                $message = array(
+                    "success"=>0,
+                    "message"=>"User telah di non aktifkan",
+                );
+                echo json_encode($message);
+                die();
+                
+            }
+
             $sessions = array();
             foreach ($login as $value) {
              $sessions = array(
@@ -60,6 +74,7 @@ class Login extends CI_Controller
             );
         }
         echo json_encode($message);
+       
     }
 
     public function logout()

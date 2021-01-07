@@ -62,13 +62,14 @@ $route['histori'] = 'barang/histori';
 
 $route['listaccount'] = 'admin/listaccount';
 $route['createaccount'] = 'admin/createaccount';
+$route['editaccount'] = 'admin/editaccount';
 
 $route['actionkeluar'] = 'barang/actionbarangkeluar';
 $route['createbarangkeluar'] = 'barang/CreateBarangKeluar';
 $route['deletebarang'] = 'barang/deletebarang';
 
 $route['createnewgudang'] = 'gudang/createnewgudang';
-$route['savegudang'] = 'gudang/savegudang';
+$route['editgudang'] = 'gudang/editgudang';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

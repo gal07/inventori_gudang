@@ -45,9 +45,11 @@
                                 <li>
                                     <a href="#">Settings</a>
                                 </li>
+                                <?php if($this->session->userdata('role') == 1): ?>
                                 <li>
                                     <a href="<?= base_url().'listaccount' ?>">List Account</a>
                                 </li>
+                                <?php endif;?>
                             </ul>
                         </div>
                     </div>
@@ -59,6 +61,7 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
+                    <?php if($this->session->userdata('role') == 1): ?>
                     <li>
                         <a data-toggle="collapse" href="#pagesExamples1">
                             <i class="material-icons">image</i>
@@ -74,6 +77,7 @@
                             </ul>
                         </div>
                     </li>
+                    <?php endif; ?>
                     <li>
                         <a data-toggle="collapse" href="#pagesExamples">
                             <i class="material-icons">image</i>

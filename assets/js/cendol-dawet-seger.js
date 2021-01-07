@@ -24,18 +24,10 @@ $(document).ready(function(){
         var telepon = $("#telepon").val();
         var password = $("#password").val();
         var gudang = $("#gudang").val();
+        var target = ($(this).attr("letsgo") == "create" ? "createaccount":"editaccount");
 
-        if (password.length == '') {
-            swal({
-                title: "Failed",
-                type:"error",
-                text: 'Field Password Harus Di Isi',
-                timer: 2000,
-                showConfirmButton: false
-             });
-        }
 
-        if (username.length == 0 || email.length == 0 || telepon.length == 0 || password.length == 0) {
+        if (username.length == 0 || email.length == 0 || telepon.length == 0) {
             swal({
                 title: "Failed",
                 type:"error",
@@ -46,6 +38,7 @@ $(document).ready(function(){
         }
 
         var data = {
+            id:($(this).attr("letsgo") == "edit" ? $(this).attr("userID"):null),
             username:username,
             email:email,
             telepon:telepon,
@@ -53,7 +46,7 @@ $(document).ready(function(){
             gudang:gudang
         }
         $.ajax({
-            url: url+"createaccount",
+            url: url+target,
             data: data,
             type: "post",
             dataType: "json",
@@ -66,7 +59,9 @@ $(document).ready(function(){
                     timer: 2000,
                     showConfirmButton: false
                  });
-                 window.location = $("#url").val()+'listaccount';
+                 setTimeout(() => {
+                    window.location = $("#url").val()+'listaccount';
+                 }, 1000);
              }else{
                 swal({
                     title: "Failed",
@@ -117,7 +112,9 @@ $(document).ready(function(){
                     timer: 2000,
                     showConfirmButton: false
                  });
-                 window.location = $("#url").val()+'listbarang';
+                 setTimeout(() => {
+                    window.location = $("#url").val()+'listbarang';
+                 }, 1000);
              }else if(res.code == 2){
                 swal({
                     title: "Failed",
@@ -311,9 +308,11 @@ $(document).ready(function(){
                          text: res.msg,
                          timer: 2000,
                          showConfirmButton: false
-                         });
-                         
-                         window.location = $("#url").val()+'listbarang';
+                     });
+                        
+                     setTimeout(() => {
+                        window.location = $("#url").val()+'listbarang';
+                     }, 1000);
 
                      }
  
@@ -345,10 +344,11 @@ $(document).ready(function(){
     $("#form-create-gudang").on("submit",function(e){
         e.preventDefault();
         var url = $("#url").val();
-        var data = new FormData(this);    
+        var data = new FormData(this);
+        var target = ($(this).attr("letsgo") == "create" ? "createnewgudang":"editgudang");    
         console.log(data)
         $.ajax({
-            url: url+"savegudang",
+            url: url+target,
             data: data,
             enctype: 'multipart/form-data',
             type: "post",
@@ -365,7 +365,9 @@ $(document).ready(function(){
                         timer: 2000,
                         showConfirmButton: false
                     });
-                    window.location = $("#url").val()+'gudang';
+                    setTimeout(() => {
+                        window.location = $("#url").val()+'gudang';
+                    }, 1000);
                 }else if(res.code == 3){
                     swal({
                         title: "Failed",
@@ -392,9 +394,9 @@ $(document).ready(function(){
         });
     })
 
-    // toggleStatus
+    // toggleStatus gudang
     let table1 = $("#datatables").DataTable();
-    table1.on("click", ".toggleStatus", function(e) {
+    table1.on("click", ".toggleStatusgudang", function(e) {
         var url = $("#url").val();
         var types = $(this).attr("types");
         var id = $(this).attr("id");
@@ -432,7 +434,88 @@ $(document).ready(function(){
                          showConfirmButton: false
                          });
                          
-                         window.location = $("#url").val()+'gudang';
+                         setTimeout(() => {
+                            window.location = $("#url").val()+'gudang';
+                         }, 1000);
+                         
+
+                     }else{
+                        swal({
+                            title: "Failed",
+                            type:"error",
+                            text: res.msg,
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                     }
+ 
+                    
+                 },
+                 complete: function () {
+ 
+                 },
+                 error: function () {
+                     swal({
+                         title: "Connection Error",
+                         type: "error",
+                         text: "Try Again !",
+                         timer: 2000,
+                         showConfirmButton: false
+                     });
+                 }
+ 
+             });
+ 
+         });
+ 
+
+
+    });
+
+    //toggleStatus user
+    let table2 = $("#datatables").DataTable();
+    table2.on("click", ".toggleStatususer", function(e) {
+        var url = $("#url").val();
+        var types = $(this).attr("types");
+        var id = $(this).attr("id");
+        var data = {
+            id:id
+         };
+
+        swal({
+         title: 'Apakah anda yakin ingin '+types+' user ini ?',
+         type: 'warning',
+         showCancelButton: true,
+         confirmButtonClass: 'btn btn-success',
+         cancelButtonClass: 'btn btn-danger',
+         confirmButtonText: (types == 'menghapus' ? 'Hapus':'Update'),
+         buttonsStyling: false
+         }).then(function() {
+             var targetUrl = (types == 'menghapus' ? 'admin/deleteUser':'admin/toggleStatus')
+             $.ajax({
+                 url: url+targetUrl,
+                 data: data,
+                 enctype: 'multipart/form-data',
+                 type: "POST",
+                 dataType: "json",
+                 success: function (res) {
+                    // $tr = $(this).closest("tr");
+                    // table.row($tr).remove().draw();
+ 
+                     console.log(res)
+                     if (res.code == 1) {
+                     swal({
+                         title: "Success",
+                         type:"success",
+                         text: res.msg,
+                         timer: 2000,
+                         showConfirmButton: false
+                         });
+                         
+                         setTimeout(() => {
+                            window.location = $("#url").val()+'listaccount';
+                         }, 1000);
+                         
 
                      }else{
                         swal({
