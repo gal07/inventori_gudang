@@ -1,173 +1,37 @@
-<?php
+<?php 
 
-class Admin extends CI_Controller
+class Branch extends CI_Controller
 {
 
-    public function index($page = 'dashboard')
+    public function index($page = 'index')
     {
         if (!$this->session->userdata('username')) {
             show_404();
-        } else {
-            if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
+        }else {
+            if (!file_exists(APPPATH.'views/branch/'.$page.'.php')) {
                 show_404();
               }else {
-                $data['titlenavbar'] = 'Dashboard';
-                $data['title'] = 'Dashboard Admin';
+                $getInvent = $this->branch_model->getInventoryByBranch($this->session->userdata('branch'));
+
+                $data['databarang'] = array();
+                foreach ($getInvent['databarang'] as $value) {
+                    $data['databarang'][$value['id']] = $value;
+                }
+
+                $data['datainventory'] = array();
+                foreach ($getInvent['datainventory'] as $value) {
+                    $data['datainventory'][$value['id']] = $value;
+                }
+
+                $data['titlenavbar'] = 'My Inventory';
+                $data['title'] = 'My Inventory';
                 $data['headScript'] = $this->Headscript();
                 $data['footerScript'] = $this->FooterScripts();
                 $this->load->view('templates/header_admin',$data);
-                $this->load->view('admin/'.$page,$data);
+                $this->load->view('branch/'.$page,$data);
                 $this->load->view('templates/footer');
-      
               }
-        }
-    
-    }
-
-    public function listaccount($page = 'listaccount')
-    {
-
-        if ($this->session->userdata('role') == 1) {
-            
-            if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
-                show_404();
-              }else {
-
-                $data['gudang'] = array();
-                $datagudang = $this->gudang_model->getDataGudang();
-                if ($datagudang != NULL) {
-                    foreach ($datagudang as $value) {
-                        $data['gudang'][$value['id']] = $value['nama'];
-                    }
-                }
-                
-
-                $data['data_account'] = $this->users_model->getAllAccount();
-                $data['titlenavbar'] = 'List Account';
-                $data['title'] = 'List Account';
-                $data['headScript'] = $this->Headscript();
-                $data['footerScript'] = $this->FooterScripts('datatable');
-                $this->load->view('templates/header_admin',$data);
-                $this->load->view('admin/'.$page,$data);
-                $this->load->view('templates/footer');
-      
-              }
-
-        } else {
-            show_404();
-        }
-
-    }
-
-    public function createaccount($page = 'createaccount')
-    {
-        if ($this->session->userdata('role') == 1) {
-            
-            if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
-                show_404();
-              }else {
-
-                if (isset($_POST['username']) != NULL) {
-                    $save = $this->users_model->createAccount($this->input->post());
-                    $message = array();
-                    if ($save) {
-                        $message = array(
-                            "success"=>1,
-                            "message"=>"Akun Telah Terbuat",
-                        );
-                    }else {
-                        $message = array(
-                            "success"=>0,
-                            "message"=>"Username Atau Email Sudah Digunakan",
-
-                        );
-                    }
-                    echo json_encode($message);
-                    die();
-                }
-                $data['datagudang'] = $this->gudang_model->getDataGudang();
-                $data['titlenavbar'] = 'Create Account';
-                $data['title'] = 'Create Account';
-                $data['headScript'] = $this->Headscript();
-                $data['footerScript'] = $this->FooterScripts();
-                $this->load->view('templates/header_admin',$data);
-                $this->load->view('admin/'.$page,$data);
-                $this->load->view('templates/footer');
-      
-              }
-
-        } else {
-            show_404();
-        }
-    }
-
-    public function editaccount($page = 'editaccount')
-    {
-        if ($this->session->userdata('role') == 1) {
-            
-            if (!file_exists(APPPATH.'views/admin/'.$page.'.php')) {
-                show_404();
-            }else{
-
-                if (isset($_POST['username']) != NULL) {
-                    $datas = $this->input->post();
-                    $update = $this->users_model->editaccount($datas);
-                    if ($update) {
-                        $result = array('code'=>1,'msg'=>'Data telah terupdate.','success'=>1);
-                        echo json_encode($result);
-                    } else {
-                        $result = array('code'=>3,'msg'=>'Data gagal terupdate.','success'=>3);
-                        echo json_encode($result);
-                    }
-                    die();
-                }
-
-                $data['datagudang'] = $this->gudang_model->getDataGudang();
-                $data["datauser"] = $this->users_model->getDetailUser($this->input->get("id"));
-                $data['titlenavbar'] = 'Edit Account';
-                $data['title'] = 'Edit Account';
-                $data['headScript'] = $this->Headscript();
-                $data['footerScript'] = $this->FooterScripts();
-                $this->load->view('templates/header_admin',$data);
-                $this->load->view('admin/'.$page,$data);
-                $this->load->view('templates/footer');
-
-
-            }
-
-        } else {
-            show_404();
-        }
-        
-    }
-
-    public function toggleStatus()
-    {
-        $toggle = $this->users_model->toggleStatus($this->input->post('id'));
-        if ($toggle) {
-            $result = array('code'=>1,'msg'=>'Berhasil merubah status','success'=>TRUE);
-            echo json_encode($result);
-        } else {
-            $result = array('code'=>3,'msg'=>'Something Error','success'=>TRUE);
-            echo json_encode($result);
-        }
-        
-    }
-
-    public function deleteUser()
-    {
-            $delete = $this->users_model->delete($this->input->post('id'));
-            if ($delete) {
-                
-                $result = array('code'=>1,'msg'=>'Data User Telah Terhapus','success'=>TRUE);
-                echo json_encode($result);
-
-            } else {
-
-                $result = array('code'=>3,'msg'=>'Something Error','success'=>TRUE);
-                echo json_encode($result);
-
-            }
+        }        
     }
 
     public function Headscript()
@@ -238,11 +102,11 @@ class Admin extends CI_Controller
                 });
         
                 // Delete a record
-                // table.on("click", ".remove", function(e) {
-                //     $tr = $(this).closest("tr");
-                //     table.row($tr).remove().draw();
-                //     e.preventDefault();
-                // });
+                table.on("click", ".remove", function(e) {
+                    $tr = $(this).closest("tr");
+                    table.row($tr).remove().draw();
+                    e.preventDefault();
+                });
         
                 //Like record
                 table.on("click", ".like", function() {
@@ -291,5 +155,6 @@ class Admin extends CI_Controller
         return $footer;
 
     }
+
     
 }

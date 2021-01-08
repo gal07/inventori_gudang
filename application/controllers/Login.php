@@ -59,7 +59,8 @@ class Login extends CI_Controller
                 "password"=>$value->password,
                 "email"=>$value->email,
                 "role"=>$value->role,
-                "status"=>$value->status
+                "status"=>$value->status,
+                "branch"=>$value->gudang
              );
             }
             $this->session->set_userdata($sessions);

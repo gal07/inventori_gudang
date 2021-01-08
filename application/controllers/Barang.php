@@ -32,7 +32,13 @@ class Barang extends CI_Controller
     public function SaveBarangMasuk()
     {
         $data = $this->input->post();
-        $update = $this->barang_model->barangMasuk($data);
+        $idgudang = $this->session->userdata('branch');
+        if (!$idgudang) {
+            $result = array('code'=>2,'msg'=>'User ini tidak memiliki Access ke branch,Coba login kembali','success'=>TRUE);
+            echo json_encode($result);
+            die();
+        }
+        $update = $this->barang_model->barangMasuk($data,$idgudang);
         if ($update) {
             $result = array('code'=>1,'msg'=>'Data Barang Telah Masuk','success'=>TRUE);
             echo json_encode($result);
@@ -67,7 +73,7 @@ class Barang extends CI_Controller
 
     public function actionBarangKeluar()
     {
-        $checkStock = $this->barang_model->CompareStock($this->input->post());
+        $checkStock = $this->barang_model->CompareStock($this->input->post(),$this->session->userdata('branch'));
 
         if ($checkStock) {
             
@@ -77,11 +83,11 @@ class Barang extends CI_Controller
                 $data = array(
                     'id'=>$this->input->post('id'),
                     'stock'=>$this->input->post('stock'),
-                    'stockbarang'=>$value->stock
+                    'stockbarang'=>$value->qty
                 );
             }
 
-            $AmbilStock = $this->barang_model->barangKeluar($data);
+            $AmbilStock = $this->barang_model->barangKeluar($data,$this->session->userdata('branch'));
             $result = array('code'=>1,'msg'=>'Barang Keluar Success','success'=>TRUE);
             echo json_encode($result);
 
@@ -177,52 +183,129 @@ class Barang extends CI_Controller
         if ($check) {
 
         /* Set Data gambar upload */
-        $config['upload_path'] = 'assets/picture/';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|JPG|JPEG';
-        $config['max_size'] = '1040';
-        $config['max_width'] = '3000';
-        $config['max_height'] = '3000';
-        date_default_timezone_set('Asia/Jakarta');
-        $config['file_name']  = date('Ymdhis').'.jpg';
-        $config['detect_mime'] = TRUE;
-        $config['width']  = 75;
-        $config['height'] = 50;
+        // assets/picture/  
 
-        $this->load->library('image_lib', $config);
-        $this->load->library('upload', $config);
-        $this->image_lib->resize();
+        // $config['upload_path'] = $_SERVER['DOCUMENT_ROOT'].'/inventori_gudang/assets/picture/';
+        // $config['allowed_types'] = 'gif|jpg|png|jpeg|JPG|JPEG';
+        // $config['max_size'] = '1040';
+        // $config['max_width'] = '3000';
+        // $config['max_height'] = '3000';
+        // date_default_timezone_set('Asia/Jakarta');
+        // $config['file_name']  = date('Ymdhis').'.jpg';
+        // $config['detect_mime'] = TRUE;
+        // $config['width']  = 75;
+        // $config['height'] = 50;
+
+        // $this->load->library('image_lib', $config);
+        // $this->load->library('upload', $config);
+        // $this->image_lib->resize();
   
-        if ($_FILES['picture']['size'] != 0) {
-          if (!$this->upload->do_upload('picture')) {
-            $result = array('code'=>3,'msg'=>strip_tags($this->upload->display_errors()),'success'=>FALSE);
-            echo json_encode($result);
-            die();
-          }
+        // if ($_FILES['picture']['size'] != 0) {
+        //   if (!$this->upload->do_upload('picture')) {
+        //     $result = array('code'=>3,'msg'=>strip_tags($this->upload->display_errors()),'success'=>FALSE);
+        //     echo json_encode($result);
+        //     die();
+        //   }
 
-          /* After Success upload ,Save Data */
-          $data = array(
-            'nama_barang'=>ucwords($this->input->post('nama_barang')),
-            'jenis'=>$this->input->post('jenis'),
-            'stock'=>$this->input->post('stock'),
-            'harga'=>$this->input->post('harga'),
-            'picture'=>$config['file_name'],
-            'active'=>$this->input->post('status'),
-          );
+        //   /* After Success upload ,Save Data */
+        //   $data = array(
+        //     'nama_barang'=>ucwords($this->input->post('nama_barang')),
+        //     'jenis'=>$this->input->post('jenis'),
+        //     'stock'=>$this->input->post('stock'),
+        //     'harga'=>$this->input->post('harga'),
+        //     'picture'=>$config['file_name'],
+        //     'active'=>$this->input->post('status'),
+        //   );
 
-          $save = $this->barang_model->create($data);
-          if ($save) {
-            $result = array('code'=>1,'msg'=>'Data Barang Telah Terbuat','success'=>TRUE);
-            echo json_encode($result);
-            die();
-          } else {
-            $result = array('code'=>2,'msg'=>'Gagal Membuat Barang, Coba Lagi','success'=>FALSE);
-            echo json_encode($result);
-            die();
-          }
+        //   $save = $this->barang_model->create($data);
+        //   if ($save) {
+        //     $result = array('code'=>1,'msg'=>'Data Barang Telah Terbuat','success'=>TRUE);
+        //     echo json_encode($result);
+        //     die();
+        //   } else {
+        //     $result = array('code'=>2,'msg'=>'Gagal Membuat Barang, Coba Lagi','success'=>FALSE);
+        //     echo json_encode($result);
+        //     die();
+        //   }
+        // }
 
-        }
+        /* After Success upload ,Save Data */
+
+            /**
+             * Ini fungsi untuk menyimpan data barang
+             * yang di simpan di table barang
+             */
+            $data = array(
+                'nama_barang'=>ucwords($this->input->post('nama_barang')),
+                'jenis'=>$this->input->post('jenis'),
+                'stock'=>0,
+                'harga'=>$this->input->post('harga'),
+                'picture'=>'test.img',
+                'active'=>$this->input->post('status'),
+            );
+            $save = $this->barang_model->create($data);
+
+
+            if ($save) {
+
+                /**
+                 * ini fungsi buat simpan data barang nya
+                 * di inventory sesuai gudang nya yang disimpan di table
+                 * inven_gudang
+                 */
+                $lastid = $save;
+                $newDataInventory = array();
+                $getGudang = $this->gudang_model->getDataGudangNoFilter();
+                foreach ($getGudang as $value) {
+                    $data = array(
+                        "id_gudang"=>$value['id'],
+                        "id_barang"=>$lastid,
+                        "qty"=>0,
+                        "status"=>$this->input->post('status'),
+                    );
+                    array_push($newDataInventory,$data);
+                }
+
+
+                // $newDataInventory = array(
+                //     "id_barang"=>$lastid,
+                //     "id_gudang"=>$this->session->userdata('branch'),
+                //     "qty"=>0,
+                //     "status"=>$this->input->post('status')
+                // );
+
+                $saveInventory = $this->branch_model->saveInventory($newDataInventory);
+
+                /**
+                 *  kirim response
+                 */
+                if ($saveInventory) {
+                    $result = array('code'=>1,'msg'=>'Data Barang Telah Terbuat','success'=>TRUE);
+                    echo json_encode($result);
+                    die();
+                } else {
+                    $result = array('code'=>2,'msg'=>'Gagal Membuat Barang, Coba Lagi','success'=>FALSE);
+                    echo json_encode($result);
+                    die();
+
+                }
+                
+
+                
+            } else {
+                /**
+                 *  kirim response
+                 */
+                $result = array('code'=>2,'msg'=>'Gagal Membuat Barang, Coba Lagi','success'=>FALSE);
+                echo json_encode($result);
+                die();
+            }
 
         }else{
+
+            /**
+             *  kirim response
+             */
             $result = array('code'=>4,'msg'=>'Barang sudah ada, tidak bisa membuat data yang sama','success'=>FALSE);
             echo json_encode($result);
             die();

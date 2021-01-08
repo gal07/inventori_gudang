@@ -22,6 +22,19 @@ class Gudang_model extends CI_model
        
     }
 
+    public function getDataGudangNoFilter()
+    {
+        $get = $this->db->select('*')
+                        ->from('gudang')
+                        ->get();
+        if ($get->num_rows() > 0) {
+            return $get->result_array();
+        } else {
+            return FALSE;
+        }
+        
+    }
+
     public function getDetailGudang($id)
     {
         $get = $this->db->select("*")

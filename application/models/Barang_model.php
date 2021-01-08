@@ -24,32 +24,39 @@ class Barang_model extends CI_model
     public function create($data)
     {
         $this->db->insert('barang',$data);
-        $this->report($this->db->insert_id(),$data['stock'],$this->session->userdata('username'),1);
-        return TRUE;
+        $lastid = $this->db->insert_id();
+        // $this->report($this->db->insert_id(),$data['stock'],$this->session->userdata('username'),1);
+        return $lastid;
     }
 
-    public function barangMasuk($data)
+    public function barangMasuk($data,$idgudang)
     {
         /* Get Data */
         $get = $this->db->select('*')
-                        ->from('barang')
-                        ->where('id',$data['nama_barang'])
+                        ->from('inven_gudang')
+                        ->where(array(
+                            'id_barang'=>$data['nama_barang'],
+                            'id_gudang'=>$idgudang
+                        ))
                         ->get();
         if ($get->num_rows() > 0) {
             $datas = $get->result();
             $qtyOld = NULL;
             foreach ($datas as $value) {
-                $qtyOld = $value->stock;
+                $qtyOld = $value->qty;
             }
             $afterSum = $qtyOld+$data['stock'];
-            $this->db->where('id',$data['nama_barang']);
+            $this->db->where(array(
+                'id_barang'=>$data['nama_barang'],
+                'id_gudang'=>$idgudang
+            ));
 
             $newData = array(
-                'stock'=>$afterSum
+                'qty'=>$afterSum
             );
 
-            $update = $this->db->update('barang',$newData);
-            $this->report($data['nama_barang'],$data['stock'],$this->session->userdata('username'),1);
+            $update = $this->db->update('inven_gudang',$newData);
+            // $this->report($data['nama_barang'],$data['stock'],$this->session->userdata('username'),1);
             return TRUE;
         }else{
             return FALSE;
@@ -57,17 +64,20 @@ class Barang_model extends CI_model
 
     }
 
-    public function barangKeluar($data)
+    public function barangKeluar($data,$idbranch)
     {
 
         /* Stock Barang - Permintaan */
         $jumlah = array(
-            'stock'=>$data['stockbarang'] - $data['stock']
+            'qty'=>$data['stockbarang'] - $data['stock']
         );
 
-        $this->db->where('id', $data['id']);
-        $this->db->update('barang', $jumlah);
-        $this->report($data['id'],$data['stock'],$this->session->userdata('username'),2);
+        $this->db->where(array(
+            "id_barang"=>$data['id'],
+            "id_gudang"=>$idbranch
+        ));
+        $this->db->update('inven_gudang', $jumlah);
+        // $this->report($data['id'],$data['stock'],$this->session->userdata('username'),2);
         return TRUE;
     }
 
@@ -85,13 +95,16 @@ class Barang_model extends CI_model
 
     }
     
-    public function CompareStock($data)
+    public function CompareStock($data,$idbranch)
     {
 
         $compare = $this->db->select('*')
-                            ->from('barang')
-                            ->where('id',$data['id'])
-                            ->where('stock >=',$data['stock'])
+                            ->from('inven_gudang')
+                            ->where(array(
+                                "id_barang"=>$data['id'],
+                                "id_gudang"=>$idbranch
+                            ))
+                            ->where('qty >=',$data['stock'])
                             ->get();
         if ($compare->num_rows() > 0) {
             return $compare->result();
