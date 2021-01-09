@@ -16,6 +16,8 @@ class Barang extends CI_Controller
             if (!file_exists(APPPATH.'views/barang/'.$page.'.php')) {
                 show_404();
               }else {
+                $data['_isactive'] = ($this->branch_model->_isBranchActive($this->session->userdata('branch')) ? array("_isactive"=>1):array("_isactive"=>0));
+                $data['_isdelete'] = ($this->branch_model->_isBranchDelete($this->session->userdata('branch')) ? array("_isdelete"=>1):array("_isdelete"=>0));
                 $data['idbarangmasuk'] = $this->input->get('idbarang');
                 $data['databarang'] = $this->barang_model->Get_Barang();
                 $data['titlenavbar'] = 'Create Barang Masuk';
@@ -59,6 +61,8 @@ class Barang extends CI_Controller
             if (!file_exists(APPPATH.'views/barang/'.$page.'.php')) {
                 show_404();
               }else {
+                $data['_isactive'] = ($this->branch_model->_isBranchActive($this->session->userdata('branch')) ? array("_isactive"=>1):array("_isactive"=>0));
+                $data['_isdelete'] = ($this->branch_model->_isBranchDelete($this->session->userdata('branch')) ? array("_isdelete"=>1):array("_isdelete"=>0));
                 $data['idbarangmasuk'] = $this->input->get('idbarang');
                 $data['titlenavbar'] = 'Create Barang Keluar';
                 $data['title'] = 'Create Barang Keluar';

@@ -11,6 +11,12 @@
                                     <div class="toolbar">
                                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                                     </div>
+                                    
+                                    <?php if($_isdelete['_isdelete'] == 1): ?>
+                                        <h5 class="text-center"><?= 'Gudang ini telah di dihapus, hubungin admin.' ?></h5>
+                                    <?php elseif($_isactive['_isactive'] == 0): ?>
+                                        <h5 class="text-center"><?= 'Gudang ini sedang di non aktifkan, hubungin admin.' ?></h5>
+                                    <?php else: ?>
                                     <div class="material-datatables">
                                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                             <thead>
@@ -59,6 +65,10 @@
                                             </tbody>
                                         </table>
                                     </div>
+
+                                    <?php endif; ?>
+
+
                                 </div>
                                 <!-- end content-->
                             </div>

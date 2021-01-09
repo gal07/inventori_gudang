@@ -41,5 +41,38 @@ class Branch_model extends CI_model
 
     }
 
+    public function _isBranchActive($idbranch)
+    {
+        $get = $this->db->select('*')
+                        ->from('gudang')
+                        ->where(array(
+                            'status'=>1,
+                            'id'=>$idbranch
+                        ))
+                        ->get();
+        if ($get->num_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+        
+    }
+
+    public function _isBranchDelete($idbranch)
+    {
+        $get = $this->db->select('*')
+                        ->from('gudang')
+                        ->where(array(
+                            'softdelete'=>1,
+                            'id'=>$idbranch
+                        ))
+                        ->get();
+        if ($get->num_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
 
 }

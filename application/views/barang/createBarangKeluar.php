@@ -3,6 +3,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
+
+                        <?php if($_isdelete['_isdelete'] == 1): ?>
+                            <h5 class="text-center"><?= 'Gudang ini telah di dihapus, hubungin admin.' ?></h5>
+                        <?php elseif($_isactive['_isactive'] == 0): ?>
+                            <h5 class="text-center"><?= 'Gudang ini sedang di non aktifkan, hubungin admin.' ?></h5>
+                        <?php else: ?>
+                    
                             <form method="get" action="#" id="form-out-barang" class="form-horizontal" enctype="multipart/form-data">
                                 <div class="card-header card-header-text" data-background-color="rose">
                                     <h4 class="card-title"><?= $titlenavbar ?></h4>
@@ -33,6 +40,8 @@
                                     <button type="submit" class="btn btn-rose">Submit</button>
                                 </div>
                             </form>
+
+                        <?php endif; ?>
                         </div>
                     </div>
                 </div>

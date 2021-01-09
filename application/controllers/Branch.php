@@ -12,7 +12,6 @@ class Branch extends CI_Controller
                 show_404();
               }else {
                 $getInvent = $this->branch_model->getInventoryByBranch($this->session->userdata('branch'));
-
                 $data['databarang'] = array();
                 foreach ($getInvent['databarang'] as $value) {
                     $data['databarang'][$value['id']] = $value;
@@ -23,6 +22,8 @@ class Branch extends CI_Controller
                     $data['datainventory'][$value['id']] = $value;
                 }
 
+                $data['_isactive'] = ($this->branch_model->_isBranchActive($this->session->userdata('branch')) ? array("_isactive"=>1):array("_isactive"=>0));
+                $data['_isdelete'] = ($this->branch_model->_isBranchDelete($this->session->userdata('branch')) ? array("_isdelete"=>1):array("_isdelete"=>0));
                 $data['titlenavbar'] = 'My Inventory';
                 $data['title'] = 'My Inventory';
                 $data['headScript'] = $this->Headscript();

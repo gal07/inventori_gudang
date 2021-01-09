@@ -18,7 +18,14 @@
                         </div>
             
                         <div class="card">
-                       
+
+                        <?php if($_isdelete['_isdelete'] == 1 && $this->session->userdata('role') == 1 ): ?>
+                            <h5 class="text-center"><?= 'Gudang ini telah di dihapus, hubungin admin.' ?></h5>
+                        <?php elseif($_isactive['_isactive'] == 0 && $this->session->userdata('role') == 2 ): ?>
+                            <h5 class="text-center"><?= 'Gudang ini sedang di non aktifkan, hubungin admin.' ?></h5>
+                        <?php else: ?>
+
+
                             <?php if($this->session->userdata('role') == 2): ?>
                             <form style="display:block" method="get" action="#" id="form-create-barang2" class="form-horizontal" enctype="multipart/form-data">
                                 <div class="card-header card-header-text" data-background-color="rose">
@@ -142,6 +149,10 @@
                                 </div>
                             </form>
                             <?php endif; ?>
+
+
+                        <?php endif; ?>
+
                         </div>
                     </div>
                 </div>
