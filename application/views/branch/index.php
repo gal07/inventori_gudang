@@ -55,7 +55,8 @@
                                                     <td class="text-right">
                                                         <a href="<?= base_url().'createbarangmasuk?idbarang='.$value['id_barang'] ?>" id="<?= $value['status'] ?>" class="btn btn-simple btn-success btn-icon"><i class="material-icons">add_circle_outline</i></a>
                                                         <a href="<?= base_url().'createbarangkeluar?idbarang='.$value['id_barang'] ?>" id="<?= $value['status'] ?>" class="btn btn-simple btn-warning btn-icon"><i class="material-icons">remove_circle_outline</i></a>
-                                                        <a href="#" id="<?= $value['status'] ?>" class="btn btn-simple btn-danger btn-icon hpsBarang"><i class="material-icons">close</i></a>
+                                                        <a href="<?= base_url().'historiperbarang?idbarang='.$value['id_barang'] ?>" id="<?= $value['status'] ?>" class="btn btn-simple btn-primary btn-icon"><i class="material-icons">history</i></a>
+                                                        <!-- <a href="#" id="<?= $value['status'] ?>" class="btn btn-simple btn-danger btn-icon hpsBarang"><i class="material-icons">close</i></a> -->
                                                     </td>
                                                 </tr>
 

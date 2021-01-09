@@ -182,6 +182,43 @@ class Barang extends CI_Controller
    
     }
 
+    public function historiPerbarang($page = 'histori')
+    {
+        if (!$this->session->userdata('username')) {
+            show_404();
+        }else {
+            if (!file_exists(APPPATH.'views/barang/'.$page.'.php')) {
+                show_404();
+              }else {
+                $data['titlenavbar'] = 'Histori Barang';
+                $data['title'] = 'Histori Barang';
+
+                $data['jenisReport'] = array();
+                $jenisReport = $this->barang_model->getJenisReport();
+                foreach ($jenisReport as $value) {
+                    $data['jenisReport'][$value['id']] = $value['name'];
+                }
+
+                $data['jenisBarang'] = array();
+                $jenisBarang = $this->barang_model->Get_Barang();
+                foreach ($jenisBarang as $values) {
+                    $data['jenisBarang'][$values['id']] = $values['nama_barang'];
+                }
+
+
+                $idbarang = ($this->input->get('idbarang') != NULL ? $this->input->get('idbarang'):0 );
+                $data['headScript'] = $this->Headscript();
+                $data['footerScript'] = $this->FooterScripts();
+                $data['reportData'] = $this->barang_model->getReportDetail($idbarang,$this->session->userdata('branch'));
+
+                $this->load->view('templates/header_admin',$data);
+                $this->load->view('barang/'.$page,$data);
+                $this->load->view('templates/footer');
+              }
+        }
+   
+    }
+
     public function SaveBarang()
     {
         /* Check barang sudah ada atau belum */

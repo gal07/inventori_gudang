@@ -151,6 +151,25 @@ class Barang_model extends CI_model
 
     }
 
+    public function getReportDetail($idbarang,$idbranch){
+
+        $get = $this->db
+                    ->select('*')
+                    ->from('report')
+                    ->where(array(
+                        'id_gudang'=>$idbranch,
+                        'id_barang'=>$idbarang
+                    ))
+                    ->get();
+
+        if ($get->num_rows() > 0) {
+            return $get->result_array();
+        }else {
+            return NULL;
+        }
+
+    }
+
     public function getJenisReport()
     {
         $get = $this->db

@@ -57,6 +57,7 @@ $route['barangmasuk'] = 'barang/SaveBarangMasuk';
 $route['createbarang'] = 'barang/BuatDataBarang';
 $route['listbarang'] = 'barang/listbarang';
 $route['histori'] = 'barang/histori';
+$route['historiperbarang'] = 'barang/historiperbarang';
 
 
 
