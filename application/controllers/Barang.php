@@ -16,6 +16,7 @@ class Barang extends CI_Controller
             if (!file_exists(APPPATH.'views/barang/'.$page.'.php')) {
                 show_404();
               }else {
+                $data['idbarangmasuk'] = $this->input->get('idbarang');
                 $data['databarang'] = $this->barang_model->Get_Barang();
                 $data['titlenavbar'] = 'Create Barang Masuk';
                 $data['title'] = 'Create Barang Masuk';

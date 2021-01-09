@@ -192,7 +192,7 @@ $(document).ready(function(){
                        timer: 2000,
                        showConfirmButton: false
                     });
-                    // window.location = $("#url").val()+'listbarang';
+                    window.location = $("#url").val()+'branch';
                 }else if(res.code == 2){
                    swal({
                        title: "Failed",
@@ -243,7 +243,7 @@ $(document).ready(function(){
                        timer: 2000,
                        showConfirmButton: false
                     });
-                    // window.location = $("#url").val()+'listbarang';
+                    window.location = $("#url").val()+'branch';
                 }else if(res.code == 3){
                    swal({
                        title: "Failed",

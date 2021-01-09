@@ -56,7 +56,7 @@ class Barang_model extends CI_model
             );
 
             $update = $this->db->update('inven_gudang',$newData);
-            // $this->report($data['nama_barang'],$data['stock'],$this->session->userdata('username'),1);
+            $this->report($data['nama_barang'],$data['stock'],$this->session->userdata('username'),1,$idgudang);
             return TRUE;
         }else{
             return FALSE;
@@ -77,7 +77,7 @@ class Barang_model extends CI_model
             "id_gudang"=>$idbranch
         ));
         $this->db->update('inven_gudang', $jumlah);
-        // $this->report($data['id'],$data['stock'],$this->session->userdata('username'),2);
+        $this->report($data['id'],$data['stock'],$this->session->userdata('username'),2,$idbranch);
         return TRUE;
     }
 
@@ -119,14 +119,15 @@ class Barang_model extends CI_model
         $this->db->delete('barang');
     }
 
-    public function report($id,$qty,$by,$report)
+    public function report($id,$qty,$by,$report,$idgudang)
     {
         $data = array(
             'id_barang'=>$id,
             'quantity'=>$qty,
             'action_by'=>$by,
             'jenis_report'=>$report,
-            'waktu'=>date('Y-m-d')
+            'waktu'=>date('Y-m-d'),
+            'id_gudang'=>$idgudang
         );
         
         $this->db->insert('report',$data);

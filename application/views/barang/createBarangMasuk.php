@@ -8,8 +8,11 @@
                             <div class="col-md-10 col-sm-3">
                                 <select class="selectpicker" name="jenis_action" id="jenis_action" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
                                     <option disabled selected>Pilih Jenis</option>
-                                    <option value="baru">Barang Baru</option>
-                                    <option value="masuk">Barang Masuk</option>
+                                    <?php if($this->session->userdata('role') == 1):?>
+                                        <option value="baru">Barang Baru</option>
+                                    <?php elseif($this->session->userdata('role') == 2): ?>
+                                        <option value="masuk">Barang Masuk</option>
+                                    <?php endif;?>
                                 </select>
                             </div>
                         </div>

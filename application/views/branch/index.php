@@ -7,7 +7,7 @@
                                     <i class="material-icons">assignment</i>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="card-title">List Barang | <a href="<?= base_url().'createbarangmasuk' ?>"> Add New <i class="material-icons">note_add</i> </a></h4>
+                                    <h4 class="card-title">List Barang</h4>
                                     <div class="toolbar">
                                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                                     </div>
@@ -47,9 +47,12 @@
                                                     <td><?= $value['qty'] ?></td>
                                                     <td><?= ($databarang[$value['id_barang']]['active'] == 1 ? '<span class="text-success"> Aktif </span>':'<span class="text-danger"> Tidak Aktif </span>') ?></td>
                                                     <td class="text-right">
+                                                        <a href="<?= base_url().'createbarangmasuk?idbarang='.$value['id_barang'] ?>" id="<?= $value['status'] ?>" class="btn btn-simple btn-success btn-icon"><i class="material-icons">add_circle_outline</i></a>
+                                                        <a href="<?= base_url().'createbarangkeluar?idbarang='.$value['id_barang'] ?>" id="<?= $value['status'] ?>" class="btn btn-simple btn-warning btn-icon"><i class="material-icons">remove_circle_outline</i></a>
                                                         <a href="#" id="<?= $value['status'] ?>" class="btn btn-simple btn-danger btn-icon hpsBarang"><i class="material-icons">close</i></a>
                                                     </td>
                                                 </tr>
+
                                             <?php endforeach; ?>
                                             <?php else: ?>
                                             <?php endif;?>

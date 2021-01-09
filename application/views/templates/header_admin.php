@@ -82,6 +82,7 @@
                             </ul>
                         </div>
                     </li>
+                    <?php if($this->session->userdata('role') == 1): ?>
                     <li>
                         <a data-toggle="collapse" href="#pagesExamples">
                             <i class="material-icons">image</i>
@@ -103,13 +104,21 @@
                             </ul>
                         </div>
                     </li>
+                    <?php endif; ?>
                     <li>
-                        <a href="#">
+                        <a data-toggle="collapse" href="#pagesExamples2">
                             <i class="material-icons">apps</i>
                             <p>Report
                                 <b class="caret"></b>
                             </p>
                         </a>
+                        <div class="collapse" id="pagesExamples2">
+                            <ul class="nav">
+                                <li>
+                                    <a href="<?= base_url().'histori' ?>">Histori</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
