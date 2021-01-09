@@ -5,15 +5,15 @@ $(document).ready(function(){
         alert('asd')
     }
 
-    $("#jenis_action").on("change",function() {
-        if($(this).val() == 'baru'){
-            $("#form-create-barang").css('display','block');
-            $("#form-create-barang2").css('display','none');
-        }else if($(this).val() == 'masuk'){
-            $("#form-create-barang2").css('display','block');
-            $("#form-create-barang").css('display','none');
-        }
-    })
+    // $("#jenis_action").on("change",function() {
+    //     if($(this).val() == 'baru'){
+    //         $("#form-create-barang").css('display','block');
+    //         $("#form-create-barang2").css('display','none');
+    //     }else if($(this).val() == 'masuk'){
+    //         $("#form-create-barang2").css('display','block');
+    //         $("#form-create-barang").css('display','none');
+    //     }
+    // })
 
     // Membuat akun 
     $("#form-create-account").on("submit",function(e){

@@ -14,7 +14,7 @@
                                             <select required class="selectpicker" name="id" id="id" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
                                                 <option disabled selected>Pilih Barang</option>
                                                 <?php foreach ($databarang as $value):?>
-                                                    <option value="<?= $value['id'] ?>"><?= $value['nama_barang'] ?></option>
+                                                    <option value="<?= $value['id'] ?>" <?= ($idbarangmasuk == $value["id"] ? 'selected':'') ?>><?= $value['nama_barang'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>

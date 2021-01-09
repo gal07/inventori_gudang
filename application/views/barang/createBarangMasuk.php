@@ -7,11 +7,11 @@
                         <h4 class="col-sm-2">Jenis Action</h4>
                             <div class="col-md-10 col-sm-3">
                                 <select class="selectpicker" name="jenis_action" id="jenis_action" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
-                                    <option disabled selected>Pilih Jenis</option>
+                                    <option disabled>Pilih Jenis</option>
                                     <?php if($this->session->userdata('role') == 1):?>
-                                        <option value="baru">Barang Baru</option>
+                                        <option value="baru" selected >Barang Baru</option>
                                     <?php elseif($this->session->userdata('role') == 2): ?>
-                                        <option value="masuk">Barang Masuk</option>
+                                        <option value="masuk" selected>Barang Masuk</option>
                                     <?php endif;?>
                                 </select>
                             </div>
@@ -19,7 +19,8 @@
             
                         <div class="card">
                        
-                            <form style="display:none" method="get" action="#" id="form-create-barang2" class="form-horizontal" enctype="multipart/form-data">
+                            <?php if($this->session->userdata('role') == 2): ?>
+                            <form style="display:block" method="get" action="#" id="form-create-barang2" class="form-horizontal" enctype="multipart/form-data">
                                 <div class="card-header card-header-text" data-background-color="rose">
                                     <h4 class="card-title"> Create Barang Masuk (Sudah Ada)</h4>
                                 </div>
@@ -30,12 +31,12 @@
                                             <select required class="selectpicker" name="nama_barang" id="nama_barang" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
                                                 <option disabled selected>Pilih Barang</option>
                                                 <?php foreach($databarang as $value): ?>
-                                                <option value="<?= $value["id"] ?>"><?= $value["nama_barang"] ?></option>
+                                                <option value="<?= $value["id"] ?>" <?= ($idbarangmasuk == $value["id"] ? 'selected':'') ?> ><?= $value["nama_barang"] ?></option>
                                                 <?php endforeach;?>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <label class="col-sm-2 label-on-left">Jenis Barang</label>
                                         <div class="col-md-10 col-sm-3">
                                             <select required class="selectpicker" name="jenis" id="jenis" data-style="btn btn-rose btn-round" title="Single Select" data-size="7">
@@ -44,7 +45,7 @@
                                                 <option value="Alat Elektronik">Elektronik</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                    
 
                                     <div class="row">
@@ -59,7 +60,9 @@
                                     <button type="submit" class="btn btn-rose">Submit</button>
                                 </div>
                             </form>
-                            <form style="display:none" method="get" action="#" id="form-create-barang" class="form-horizontal" enctype="multipart/form-data">
+                            
+                            <?php elseif($this->session->userdata('role') == 1): ?>
+                            <form style="display:block" method="get" action="#" id="form-create-barang" class="form-horizontal" enctype="multipart/form-data">
                                 <div class="card-header card-header-text" data-background-color="rose">
                                     <h4 class="card-title"> Create Barang Baru (Data Baru) </h4>
                                 </div>
@@ -138,6 +141,7 @@
                                     <button type="submit" class="btn btn-rose">Submit</button>
                                 </div>
                             </form>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
