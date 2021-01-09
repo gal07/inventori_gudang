@@ -19,7 +19,7 @@
                                                     <th>Nama Barang</th>
                                                     <th>Jenis</th>
                                                     <th>Harga (Rp .)</th>
-                                                    <th>Stock</th>
+                                                    <!-- <th>Stock</th> -->
                                                     <th>Status</th>
                                                     <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
@@ -43,8 +43,8 @@
                                                     <!-- <td> <img src="<?= base_url().'assets/picture/'.$value['picture'] ?>"> </td> -->
                                                     <td><?= $value['nama_barang'] ?></td>
                                                     <td><?= $value['jenis'] ?></td>
-                                                    <td><?= $value['harga'] ?></td>
-                                                    <td><?= $value['stock'] ?></td>
+                                                    <td><?= 'Rp '.number_format($value['harga'],0) ?></td>
+                                                    <!-- <td><?//= $value['stock'] ?></td> -->
                                                     <td><?= ($value['active'] == 1 ? '<span class="text-success"> Aktif </span>':'<span class="text-danger"> Tidak Aktif </span>') ?></td>
                                                     <td class="text-right">
                                                         <a href="#" id="<?= $value['id'] ?>" class="btn btn-simple btn-danger btn-icon hpsBarang"><i class="material-icons">close</i></a>

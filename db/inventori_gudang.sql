@@ -30,8 +30,9 @@ CREATE TABLE `barang` (
   `harga` decimal(18,0) DEFAULT NULL,
   `picture` varchar(100) DEFAULT NULL,
   `active` int DEFAULT NULL,
+  `softdelete` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +41,7 @@ CREATE TABLE `barang` (
 
 LOCK TABLES `barang` WRITE;
 /*!40000 ALTER TABLE `barang` DISABLE KEYS */;
-INSERT INTO `barang` VALUES (8,'Pensil 5B Aasus','Alat Elektronik',89,50000,'20190923112313.jpg',1),(9,'Asus ROG 2000','Alat Elektronik',52,2000000,'20200104072550.jpg',1),(10,'Firebase','Alat Elektronik',55,450000,'20200921053433.jpg',1),(11,'Mouse Gaming HP M160','Alat Elektronik',5,160000,'20201226023057.jpg',1),(12,'Mouse Gaming AULA DPI 2100','Alat Elektronik',90,70000,'20201226052816.jpg',1),(13,'Mouse Gaming Red Dragon M920','Alat Elektronik',55,100000,'20201226055752.jpg',1);
+INSERT INTO `barang` VALUES (65,'Asus Rog M15','Alat Elektronik',0,9000000,'test.img',1,0),(66,'Acer M9280','Alat Elektronik',0,8900000,'test.img',1,0),(67,'Tempered GlasS Samsung Galaxy S3','Alat Elektronik',0,80000,'test.img',1,0);
 /*!40000 ALTER TABLE `barang` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +84,7 @@ CREATE TABLE `gudang` (
   `status` int NOT NULL,
   `softdelete` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +93,7 @@ CREATE TABLE `gudang` (
 
 LOCK TABLES `gudang` WRITE;
 /*!40000 ALTER TABLE `gudang` DISABLE KEYS */;
-INSERT INTO `gudang` VALUES (1,'Gudang Jakarta',1,0),(2,'Gudang Bekasi',1,0),(3,'Gudang depok',1,1),(6,'Gudang Depok',1,0);
+INSERT INTO `gudang` VALUES (12,'Gudang Jepang',1,0),(13,'Gudang Indonesia',1,0);
 /*!40000 ALTER TABLE `gudang` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,12 +110,13 @@ CREATE TABLE `inven_gudang` (
   `id_barang` int NOT NULL,
   `qty` int NOT NULL,
   `status` int NOT NULL,
+  `softdelete` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `gudangConstraint` (`id_gudang`),
   KEY `barangConstraint` (`id_barang`),
   CONSTRAINT `barangConstraint` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `gudangConstraint` FOREIGN KEY (`id_gudang`) REFERENCES `gudang` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +125,7 @@ CREATE TABLE `inven_gudang` (
 
 LOCK TABLES `inven_gudang` WRITE;
 /*!40000 ALTER TABLE `inven_gudang` DISABLE KEYS */;
-INSERT INTO `inven_gudang` VALUES (2,1,12,63,0),(5,2,13,56,0);
+INSERT INTO `inven_gudang` VALUES (13,12,65,55,1,0),(14,13,65,10,1,0),(15,12,66,100,1,0),(16,13,66,10,1,0),(17,12,67,1000,1,0),(18,13,67,10,1,0);
 /*!40000 ALTER TABLE `inven_gudang` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,13 +162,14 @@ DROP TABLE IF EXISTS `report`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `report` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `id_barang` int DEFAULT NULL,
-  `quantity` int DEFAULT NULL,
-  `action_by` varchar(100) DEFAULT NULL,
-  `jenis_report` int DEFAULT NULL,
-  `waktu` date DEFAULT NULL,
+  `id_barang` int NOT NULL,
+  `quantity` int NOT NULL,
+  `action_by` varchar(100) NOT NULL,
+  `jenis_report` int NOT NULL,
+  `waktu` date NOT NULL,
+  `id_gudang` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,6 +178,7 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
+INSERT INTO `report` VALUES (1,66,10,'david',1,'2021-01-09',13),(2,65,10,'david',1,'2021-01-09',13),(3,67,10,'david',1,'2021-01-09',13),(4,66,100,'fahri',1,'2021-01-09',12),(5,65,100,'fahri',1,'2021-01-09',12),(6,67,100,'fahri',1,'2021-01-09',12),(7,65,45,'fahri',2,'2021-01-09',12),(8,67,900,'fahri',1,'2021-01-09',12);
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,9 +198,10 @@ CREATE TABLE `users` (
   `role` int NOT NULL,
   `gudang` int DEFAULT NULL,
   `status` int NOT NULL,
+  `softdelete` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDPARENT` (`gudang`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,7 +210,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'galih','galih@mail.com','0991288384','123456',1,0,1),(7,'amirudin','amirudi@gmail.com','09887882882','123456',2,1,1);
+INSERT INTO `users` VALUES (1,'galih','galih@mail.com','0991288384','123456',1,0,1,0),(10,'fahri','fahri@gmail.com','0817273881','123456',2,12,1,0),(11,'dani','dani@mail.com','08773128818','123456',2,12,1,0),(12,'budi','budi99@gmail.com','08772838188','123456',2,13,1,0),(13,'david','daviid@gmail.com','0988278288','123456',2,13,1,0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -218,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-06 11:57:11
+-- Dump completed on 2021-01-09 16:25:44
