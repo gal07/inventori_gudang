@@ -168,7 +168,7 @@ class Barang extends CI_Controller
 
                 $data['headScript'] = $this->Headscript();
                 $data['footerScript'] = $this->FooterScripts();
-                $data['reportData'] = $this->barang_model->getReport();
+                $data['reportData'] = $this->barang_model->getReport($this->session->userdata('branch'));
                 $this->load->view('templates/header_admin',$data);
                 $this->load->view('barang/'.$page,$data);
                 $this->load->view('templates/footer');
