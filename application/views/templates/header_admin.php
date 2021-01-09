@@ -95,12 +95,12 @@
                                 <li>
                                     <a href="<?= base_url().'listbarang' ?>">Data Barang</a>
                                 </li>
-                                <li>
-                                    <a href="<?= base_url().'createbarangkeluar' ?>">Create Barang Keluar</a>
+                                <!-- <li>
+                                    <a href="<?//= base_url().'createbarangkeluar' ?>">Create Barang Keluar</a>
                                 </li>
                                 <li>
-                                    <a href="<?= base_url().'histori' ?>">Histori</a>
-                                </li>
+                                    <a href="<?//= base_url().'histori' ?>">Histori</a>
+                                </li> -->
                             </ul>
                         </div>
                     </li>
