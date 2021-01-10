@@ -33,7 +33,8 @@
             <div class="sidebar-wrapper">
                 <div class="user">
                     <div class="photo">
-                        <img src="<?= base_url() ?>assets/img/faces/avatar.jpg" />
+                        <img src="https://cdn.iconscout.com/icon/free/png-512/avatar-372-456324.png"/>
+                        <!-- "<?//= base_url() ?>assets/img/faces/avatar.jpg" -->
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">

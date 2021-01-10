@@ -28,6 +28,14 @@
                                     </div>
 
                                     <div class="row">
+                                        <label class="col-sm-2 label-on-left">Deskripsi</label>
+                                        <div class="col-md-10 col-sm-3">
+                                                <label class="control-label"></label>
+                                                <input required type="text" id="description" name="description" class="form-control" value>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
                                         <label class="col-sm-2 label-on-left">Quantity</label>
                                         <div class="col-sm-10">
                                             <div class="form-group label-floating is-empty">

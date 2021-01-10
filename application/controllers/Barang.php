@@ -89,7 +89,8 @@ class Barang extends CI_Controller
                 $data = array(
                     'id'=>$this->input->post('id'),
                     'stock'=>$this->input->post('stock'),
-                    'stockbarang'=>$value->qty
+                    'stockbarang'=>$value->qty,
+                    'description'=>$this->input->post('description'),
                 );
             }
 
