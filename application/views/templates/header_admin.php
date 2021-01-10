@@ -22,12 +22,12 @@
 <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="<?= base_url() ?>assets/img/sidebar-1.jpg">
             <div class="logo">
                 <a href="http://www.creative-tim.com/" class="simple-text">
-                    Creative Tim
+                    Medio Team
                 </a>
             </div>
             <div class="logo logo-mini">
                 <a href="http://www.creative-tim.com/" class="simple-text">
-                    Ct
+                    MT
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -39,6 +39,9 @@
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             <?= $this->session->userdata('username') ?>
+                            <?php if($this->session->userdata('role') == 2): ?>
+                            <small>(<?= $this->session->userdata('namabranch') ?>)</small>
+                            <?php endif ;?>
                             <b class="caret"></b>
                         </a>
                         <div class="collapse" id="collapseExample">
@@ -118,8 +121,18 @@
                                 <li>
                                     <a href="<?= base_url().'histori' ?>">Histori</a>
                                 </li>
+                                <li>
+                                    <a href="<?= base_url().'excel/allreportBybranch' ?>">Activity Report</a>
+                                </li>
                             </ul>
                         </div>
+                    </li>
+                    <li>
+                        <a href="<?= base_url().'login/logout' ?>">
+                            <i class="material-icons">power_off</i>
+                            <p>Exit
+                            </p>
+                        </a>
                     </li>
                 </ul>
             </div>

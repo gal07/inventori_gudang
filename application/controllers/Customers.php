@@ -1,4 +1,8 @@
 <?php
+require 'vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
  
 class Customers extends CI_Controller {
@@ -18,6 +22,35 @@ class Customers extends CI_Controller {
         $this->load->view('templates/header_admin',$data);
         $this->load->view('customer/customers_view');
         $this->load->view('templates/footer');
+    }
+
+    public function excels()
+    {
+        $spreadsheet = new Spreadsheet();
+        $filename = "export_".$date.".xlsx";
+        $spreadsheet->getProperties()->setCreator("Maarten Balliauw");
+        $spreadsheet->getProperties()->setLastModifiedBy("Maarten Balliauw");
+        $spreadsheet->getProperties()->setTitle("Office 2007 XLSX Test Document");
+        $spreadsheet->getProperties()->setSubject("Office 2007 XLSX Test Document");
+        $spreadsheet->getProperties()->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.");
+        $spreadsheet->getProperties()->setKeywords("office 2007 openxml php");
+        $spreadsheet->getProperties()->setCategory("Test result file");
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Tanggal');
+        $sheet->setCellValue('C1', 'Nama Barang');
+        $sheet->setCellValue('D1', 'Jenis Aksi');
+        $sheet->setCellValue('E1', 'Kuantitas');
+        $sheet->setCellValue('F1', 'Nama Gudang');
+        
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('hello_world.xlsx');
+        $content = file_get_contents($filename);
+        header("Content-Disposition: attachment; filename=".$filename);
+        header(base_url());
+
+        
+
     }
  
     public function ajax_list()

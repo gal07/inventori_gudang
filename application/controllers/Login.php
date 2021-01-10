@@ -51,6 +51,12 @@ class Login extends CI_Controller
                 
             }
 
+            $data['namaGudang'] = array();
+            $namaGudang = $this->gudang_model->getDataGudangNoFilter();
+            foreach ($namaGudang as $value) {
+                $data['namaGudang'][$value['id']] = $value['nama'];
+            }
+
             $sessions = array();
             foreach ($login as $value) {
              $sessions = array(
@@ -60,7 +66,8 @@ class Login extends CI_Controller
                 "email"=>$value->email,
                 "role"=>$value->role,
                 "status"=>$value->status,
-                "branch"=>$value->gudang
+                "branch"=>$value->gudang,
+                "namabranch"=>$data['namaGudang'][$value->gudang]
              );
             }
             $this->session->set_userdata($sessions);

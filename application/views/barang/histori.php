@@ -21,7 +21,7 @@
                                                 </div>
                                                 <div class="timeline-body">
                                                     <p><b>Deksripsi :</b></p>
-                                                    <p>Lorem Ipsum is simply.</p>
+                                                    <p><?= $value['description'] ?></p>
                                                     <p><b>Nama Barang / Qty :</b></p>
                                                     <p><?= $jenisBarang[$value['id_barang']] ?> : <?= $value['quantity'] ?> Qty</p>
                                                 </div>

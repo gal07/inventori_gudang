@@ -136,13 +136,23 @@ class Barang_model extends CI_model
 
     }
     
-    public function getReport($idbranch){
+    public function getReport($idbranch = NULL){
 
-        $get = $this->db
+        if ($idbranch != NULL) {
+            $get = $this->db
                     ->select('*')
                     ->from('report')
                     ->where('id_gudang',$idbranch)
                     ->get();
+        } else {
+            $get = $this->db
+                    ->select('*')
+                    ->from('report')
+                    ->get();
+        }
+        
+        
+        
 
         if ($get->num_rows() > 0) {
             return $get->result_array();
