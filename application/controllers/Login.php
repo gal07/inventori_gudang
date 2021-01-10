@@ -67,7 +67,7 @@ class Login extends CI_Controller
                 "role"=>$value->role,
                 "status"=>$value->status,
                 "branch"=>$value->gudang,
-                "namabranch"=>$data['namaGudang'][$value->gudang]
+                "namabranch"=>($value->role == 2 ? $data['namaGudang'][$value->gudang]:'')
              );
             }
             $this->session->set_userdata($sessions);
